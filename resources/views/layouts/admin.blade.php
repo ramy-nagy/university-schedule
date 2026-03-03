@@ -90,6 +90,9 @@
                     class="bi bi-people me-2"></i>المجموعات</a>
             <a href="{{ route('admin.schedules.index') }}" class="nav-link @active('admin/schedules*')"><i
                     class="bi bi-calendar-week me-2"></i>الجداول</a>
+            <a href="{{ route('admin.students.index') }}" class="nav-link @active('admin/students*')">
+                <i class="bi bi-mortarboard me-2"></i>الطلاب
+            </a>
             <hr style="border-color:#2e6da4">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

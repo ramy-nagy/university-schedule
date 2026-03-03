@@ -20,6 +20,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::resource('subjects',       Admin\SubjectController::class);
         Route::resource('student-groups', Admin\StudentGroupController::class);
         Route::resource('schedules',      Admin\ScheduleController::class);
+        Route::resource('students',        Admin\StudentController::class); // ✅ جديد
     });
 
 // ── Doctor Routes ─────────────────────────────────────────
