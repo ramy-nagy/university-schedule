@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 @section('title','إضافة دكتور')
 @section('content')
-<div class="card" style="max-width:650px;margin:auto">
+<div class="card" style="max-width:600px;margin:auto;width:100%">
     <div class="card-header bg-success text-white fw-bold">
         <i class="bi bi-person-plus me-2"></i>إضافة دكتور جديد
     </div>

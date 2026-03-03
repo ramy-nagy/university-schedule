@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 @section('title','إضافة مادة')
 @section('content')
-<div class="card" style="max-width:600px;margin:auto">
+<div class="card" style="max-width:600px;margin:auto;width:100%">
     <div class="card-header bg-warning text-dark fw-bold">
         <i class="bi bi-book me-2"></i>إضافة مادة جديدة
     </div>

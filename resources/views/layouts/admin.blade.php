@@ -21,6 +21,8 @@
             position: fixed;
             top: 0;
             right: 0;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
         }
 
         .sidebar .nav-link {
@@ -46,6 +48,21 @@
         .main-content {
             margin-right: 250px;
             padding: 25px;
+            transition: margin-right 0.3s ease-in-out;
+        }
+
+        .toggle-sidebar {
+            display: none;
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
         }
 
         .card {
@@ -69,13 +86,63 @@
         .conflict-alert {
             border-right: 4px solid #dc3545;
         }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                transform: translateX(100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-right: 0;
+                padding: 15px;
+            }
+
+            .toggle-sidebar {
+                display: block;
+            }
+
+            .card {
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                padding: 10px;
+            }
+
+            .card {
+                border-radius: 8px;
+            }
+
+            .btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.875rem;
+            }
+
+            .btn-group {
+                flex-wrap: wrap;
+                gap: 0.25rem;
+            }
+        }
     </style>
 </head>
 
 <body>
 
+    {{-- Mobile Menu Toggle --}}
+    <button class="toggle-sidebar" id="sidebarToggle">
+        <i class="bi bi-list"></i>
+    </button>
+
     {{-- Sidebar --}}
-    <div class="sidebar pt-0">
+    <div class="sidebar pt-0" id="sidebar">
         <div class="logo"><i class="bi bi-mortarboard-fill me-2"></i>نظام الجداول</div>
         <nav class="nav flex-column mt-3">
             <a href="{{ route('admin.dashboard') }}" class="nav-link @active('admin/dashboard')"><i
@@ -121,6 +188,21 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+        });
+
+        // Close sidebar when a link is clicked on mobile
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    document.getElementById('sidebar').classList.remove('show');
+                });
+            });
+        }
+    </script>
     @stack('scripts')
 </body>
 

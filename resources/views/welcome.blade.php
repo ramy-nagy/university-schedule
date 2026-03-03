@@ -869,7 +869,12 @@
             <a href="#how">كيف يعمل</a>
             <a href="#roles">الأدوار</a>
             <a href="#tech">التقنيات</a>
-            <a href="{{ route('login') }}" class="btn-nav">ابدأ الآن</a>
+            @auth
+                <a href="{{ route('admin.dashboard') }}" class="btn-nav">لوحة التحكم</a>
+            @else
+                <a href="{{ route('login') }}" class="btn-nav">ابدأ الآن</a>
+
+            @endauth
         </div>
     </nav>
 

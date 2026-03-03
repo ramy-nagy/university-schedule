@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="card" style="max-width:600px;margin:auto">
+    <div class="card" style="max-width:600px;margin:auto;width:100%">
 
         <div class="card-header bg-info text-white fw-bold">
             <i class="bi bi-pencil-square me-2"></i>

@@ -3,7 +3,7 @@
 @section('title','المجموعات الطلابية')
 @section('content')
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
     <h4 class="mb-0"><i class="bi bi-people me-2 text-info"></i>إدارة المجموعات الطلابية</h4>
     <a href="{{ route('admin.student-groups.create') }}" class="btn btn-info text-white">
         <i class="bi bi-plus-lg me-1"></i>إضافة مجموعة
@@ -11,7 +11,7 @@
 </div>
 
 <div class="card">
-    <div class="card-body p-0">
+    <div class="card-body p-0 table-responsive">
         <table class="table table-hover align-middle mb-0">
             <thead class="table-light">
                 <tr><th>#</th><th>اسم المجموعة</th><th>أيام الدراسة</th><th>الطلاب</th><th>الجداول</th><th>إجراءات</th></tr>

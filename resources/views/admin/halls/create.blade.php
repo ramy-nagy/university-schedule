@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 @section('title','إضافة قاعة')
 @section('content')
-<div class="card" style="max-width:600px;margin:auto">
+<div class="card" style="max-width:600px;margin:auto;width:100%">
     <div class="card-header bg-primary text-white fw-bold">
         <i class="bi bi-building-add me-2"></i>إضافة قاعة جديدة
     </div>

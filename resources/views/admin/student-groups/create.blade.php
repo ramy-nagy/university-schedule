@@ -3,9 +3,9 @@
 @section('title', 'إضافة مجموعة')
 
 @section('content')
-    <div class="card" style="max-width:600px;margin:auto">
+    <div class="card" style="max-width:600px;margin:auto;width:100%">
         <div class="card-header bg-info text-white fw-bold">
-            إضافة مجموعة طلابية جديدة
+            <i class="bi bi-plus-circle me-2"></i>إضافة مجموعة طلابية جديدة
         </div>
 
         <div class="card-body">

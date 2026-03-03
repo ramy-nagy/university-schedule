@@ -2,7 +2,7 @@
 @extends('layouts.admin')
 @section('title','تعديل دكتور')
 @section('content')
-<div class="card" style="max-width:650px;margin:auto">
+<div class="card" style="max-width:600px;margin:auto;width:100%">
     <div class="card-header bg-warning text-dark fw-bold">
         <i class="bi bi-pencil-square me-2"></i>تعديل: {{ $doctor->name }}
     </div>
