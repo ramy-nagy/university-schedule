@@ -19,11 +19,8 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name','email','password','role','student_group_id','doctor_id'];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -60,5 +57,24 @@ class User extends Authenticatable
             ->take(2)
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+
+    public function doctor()       { return $this->belongsTo(Doctor::class); }
+    public function studentGroup() { return $this->belongsTo(StudentGroup::class); }
+
+    public function isAdmin()   { return $this->role === 'admin'; }
+    public function isDoctor()  { return $this->role === 'doctor'; }
+    public function isStudent() { return $this->role === 'student'; }
+
+    // Redirect after login based on role
+    public function dashboardRoute(): string
+    {
+        return match($this->role) {
+            'admin'   => 'admin.dashboard',
+            'doctor'  => 'doctor.dashboard',
+            'student' => 'student.dashboard',
+            default   => 'login',
+        };
     }
 }
