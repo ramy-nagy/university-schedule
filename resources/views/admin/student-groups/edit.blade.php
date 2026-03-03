@@ -6,20 +6,20 @@
         <i class="bi bi-pencil-square me-2"></i>تعديل مجموعة طلابية
     </div>
     <div class="card-body">
-        <form method="POST" action="{{ route('admin.student-groups.update', $studentGroup->id) }}">
+        <form method="POST" action="{{ route('admin.student-groups.update', $group->id) }}">
             @csrf
             @method('PUT')
             <div class="mb-3">
                 <label class="form-label">اسم المجموعة <span class="text-danger">*</span></label>
                 <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                       value="{{ old('name', $studentGroup->name) }}" placeholder="مثال: المجموعة الأولى" required>
+                       value="{{ old('name', $group->name) }}" placeholder="مثال: المجموعة الأولى" required>
                 @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
             <div class="mb-3">
                 <label class="form-label">أيام الدراسة <span class="text-danger">*</span></label>
                 <div class="d-flex flex-wrap gap-2">
                     @php
-                        $groupDays = old('days', explode(',', $studentGroup->study_days ?? ''));
+                        $groupDays = old('days', explode(',', $group->study_days ?? ''));
                     @endphp
                     @foreach(['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس'] as $day)
                     <div class="form-check form-check-inline">
@@ -36,7 +36,7 @@
             <div class="mb-4">
                 <label class="form-label">الوصف</label>
                 <textarea name="description" class="form-control" rows="3"
-                          placeholder="مثال: تبدأ من الساعة 8 صباحاً">{{ old('description', $studentGroup->description) }}</textarea>
+                          placeholder="مثال: تبدأ من الساعة 8 صباحاً">{{ old('description', $group->description) }}</textarea>
             </div>
             <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-info text-white"><i class="bi bi-check-lg me-1"></i>حفظ التعديلات</button>
