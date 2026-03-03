@@ -29,7 +29,7 @@ class StudentGroupController extends Controller
     {
         $validated = $request->validate([
             'name'        => 'required|string|max:100|unique:student_groups,name',
-            'study_days'  => 'required|string|max:200',
+            'study_days'  => 'required|array',
             'description' => 'nullable|string|max:500',
         ], [
             'name.required'       => 'اسم المجموعة مطلوب',
@@ -53,10 +53,9 @@ class StudentGroupController extends Controller
 
     public function update(Request $request, StudentGroup $studentGroup)
     {
-        Log::info($request->all());
         $validated = $request->validate([
             'name'        => 'required|string|max:100|unique:student_groups,name,' . $studentGroup->id,
-            'study_days'  => 'required|string|max:200',
+            'study_days'  => 'required|array',
             'description' => 'nullable|string|max:500',
         ], [
             'name.required'       => 'اسم المجموعة مطلوب',
