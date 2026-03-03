@@ -31,14 +31,9 @@ class StudentGroupController extends Controller
             'name'        => 'required|string|max:100|unique:student_groups,name',
             'study_days'  => 'required|array',
             'description' => 'nullable|string|max:500',
-        ], [
-            'name.required'       => 'اسم المجموعة مطلوب',
-            'name.unique'         => 'اسم المجموعة موجود بالفعل',
-            'name.max'            => 'لا يتجاوز الاسم 100 حرف',
-            'study_days.required' => 'يجب تحديد أيام الدراسة',
-            'study_days.max'      => 'لا تتجاوز أيام الدراسة 200 حرف',
-            'description.max'     => 'لا يتجاوز الوصف 500 حرف',
         ]);
+
+        $validated['study_days'] = implode(',', $validated['study_days']);
 
         StudentGroup::create($validated);
 
@@ -57,15 +52,10 @@ class StudentGroupController extends Controller
             'name'        => 'required|string|max:100|unique:student_groups,name,' . $studentGroup->id,
             'study_days'  => 'required|array',
             'description' => 'nullable|string|max:500',
-        ], [
-            'name.required'       => 'اسم المجموعة مطلوب',
-            'name.unique'         => 'اسم المجموعة موجود بالفعل',
-            'name.max'            => 'لا يتجاوز الاسم 100 حرف',
-            'study_days.required' => 'يجب تحديد أيام الدراسة',
-            'study_days.max'      => 'لا تتجاوز أيام الدراسة 200 حرف',
-            'description.max'     => 'لا يتجاوز الوصف 500 حرف',
         ]);
-        
+
+        $validated['study_days'] = implode(',', $validated['study_days']);
+
         $studentGroup->update($validated);
 
         return redirect()->route('admin.student-groups.index')
