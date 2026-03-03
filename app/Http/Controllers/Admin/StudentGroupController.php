@@ -9,6 +9,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\StudentGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class StudentGroupController extends Controller
 {
@@ -52,6 +53,7 @@ class StudentGroupController extends Controller
 
     public function update(Request $request, StudentGroup $studentGroup)
     {
+        Log::info($request->all());
         $validated = $request->validate([
             'name'        => 'required|string|max:100|unique:student_groups,name,' . $studentGroup->id,
             'study_days'  => 'required|string|max:200',
