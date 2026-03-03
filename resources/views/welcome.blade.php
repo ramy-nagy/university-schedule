@@ -862,7 +862,7 @@
     <nav id="navbar">
         <div class="nav-logo">
             <i class="bi bi-mortarboard-fill" style="color:#3b82f6;font-size:1.5rem"></i>
-            Uni<span>Schedule</span>
+            KHELO<span>Schedule</span>
         </div>
         <div class="nav-links">
             <a href="#features">المميزات</a>
