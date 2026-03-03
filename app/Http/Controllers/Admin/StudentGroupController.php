@@ -26,13 +26,20 @@ class StudentGroupController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name'        => 'required|string|max:100|unique:student_groups,name',
             'study_days'  => 'required|string|max:200',
             'description' => 'nullable|string|max:500',
+        ], [
+            'name.required'       => 'اسم المجموعة مطلوب',
+            'name.unique'         => 'اسم المجموعة موجود بالفعل',
+            'name.max'            => 'لا يتجاوز الاسم 100 حرف',
+            'study_days.required' => 'يجب تحديد أيام الدراسة',
+            'study_days.max'      => 'لا تتجاوز أيام الدراسة 200 حرف',
+            'description.max'     => 'لا يتجاوز الوصف 500 حرف',
         ]);
 
-        StudentGroup::create($request->all());
+        StudentGroup::create($validated);
 
         return redirect()->route('admin.student-groups.index')
             ->with('success', 'تم إضافة المجموعة بنجاح ✅');
@@ -40,18 +47,25 @@ class StudentGroupController extends Controller
 
     public function edit(StudentGroup $studentGroup)
     {
-        return view('admin.student-groups.edit', compact('studentGroup'));
+        return view('admin.student-groups.edit', ['group' => $studentGroup]);
     }
 
     public function update(Request $request, StudentGroup $studentGroup)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name'        => 'required|string|max:100|unique:student_groups,name,' . $studentGroup->id,
             'study_days'  => 'required|string|max:200',
             'description' => 'nullable|string|max:500',
+        ], [
+            'name.required'       => 'اسم المجموعة مطلوب',
+            'name.unique'         => 'اسم المجموعة موجود بالفعل',
+            'name.max'            => 'لا يتجاوز الاسم 100 حرف',
+            'study_days.required' => 'يجب تحديد أيام الدراسة',
+            'study_days.max'      => 'لا تتجاوز أيام الدراسة 200 حرف',
+            'description.max'     => 'لا يتجاوز الوصف 500 حرف',
         ]);
-
-        $studentGroup->update($request->all());
+        
+        $studentGroup->update($validated);
 
         return redirect()->route('admin.student-groups.index')
             ->with('success', 'تم تعديل المجموعة بنجاح ✅');
