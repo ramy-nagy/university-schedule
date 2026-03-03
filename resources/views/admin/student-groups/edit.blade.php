@@ -68,10 +68,22 @@
     @push('scripts')
         <script>
             // جمع الأيام المختارة في حقل واحد مفصول بفاصلة
-            document.querySelector('form').addEventListener('submit', function() {
-                const checked = [...document.querySelectorAll('input[name="days[]"]:checked')]
-                    .map(el => el.value);
-                document.getElementById('study_days_input').value = checked.join(',');
+            document.addEventListener('DOMContentLoaded', function() {
+                const form = document.querySelector('form');
+                const studyDaysInput = document.getElementById('study_days_input');
+                
+                form.addEventListener('submit', function(e) {
+                    const checked = Array.from(document.querySelectorAll('input[name="days[]"]:checked'))
+                        .map(el => el.value);
+                    
+                    if (checked.length === 0) {
+                        e.preventDefault();
+                        alert('يجب تحديد أيام الدراسة على الأقل!');
+                        return false;
+                    }
+                    
+                    studyDaysInput.value = checked.join(',');
+                });
             });
         </script>
     @endpush
