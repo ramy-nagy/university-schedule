@@ -817,12 +817,12 @@
         <div class="main-content">
 
             {{-- Page Header --}}
-            <div class="page-header">
+            {{-- <div class="page-header">
                 <h5>@yield('title', 'الرئيسية')</h5>
                 <p>
                     <i class="bi bi-calendar3 me-2"></i>{{ now()->translatedFormat('l، d F Y') }}
                 </p>
-            </div>
+            </div> --}}
 
             {{-- Flash Messages --}}
             @if (session('success'))
