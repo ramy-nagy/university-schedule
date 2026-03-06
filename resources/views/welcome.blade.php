@@ -865,10 +865,10 @@
             KHELO<span>Schedule</span>
         </div>
         <div class="nav-links">
-            <a href="#features">المميزات</a>
+            {{-- <a href="#features">المميزات</a>
             <a href="#how">كيف يعمل</a>
             <a href="#roles">الأدوار</a>
-            <a href="#tech">التقنيات</a>
+            <a href="#tech">التقنيات</a> --}}
             @auth
                 <a href="{{ route('admin.dashboard') }}" class="btn-nav">لوحة التحكم</a>
             @else
@@ -879,7 +879,7 @@
     </nav>
 
     <!-- ── Hero ────────────────────────────────────────────────── -->
-    <section class="hero" id="home">
+    <section class="hero mt-4" id="home">
         <div class="hero-bg-circles">
             <div class="circle c1"></div>
             <div class="circle c2"></div>
@@ -888,10 +888,10 @@
         <div class="particles" id="particles"></div>
 
         <div class="hero-content">
-            <div class="hero-badge">
+            {{-- <div class="hero-badge">
                 <div class="dot"></div>
                 نظام جامعي متكامل — مدعوم بـ Laravel & Bootstrap
-            </div>
+            </div> --}}
 
             <h1>
                 نظام إدارة<br>
@@ -939,7 +939,7 @@
         </div>
     </section>
 
-    <!-- ── Features ─────────────────────────────────────────────── -->
+    {{-- <!-- ── Features ─────────────────────────────────────────────── -->
     <section class="features" id="features">
         <div class="container">
             <div class="reveal">
@@ -1224,7 +1224,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- ── Footer ────────────────────────────────────────────────── -->
     <footer>
