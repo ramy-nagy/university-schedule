@@ -290,7 +290,7 @@
 
         .card-header {
             border-radius: 16px 16px 0 0 !important;
-            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            /* background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); */
             border-bottom: none;
             padding: 24px !important;
             font-weight: 700;
