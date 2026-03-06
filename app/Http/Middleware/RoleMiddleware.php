@@ -30,8 +30,8 @@ class RoleMiddleware
             // بدل ما يطلع 403، يحوله على الداشبورد بتاعه هو
             $redirectRoute = $this->dashboards[$userRole] ?? 'login';
 
-            return redirect()->route($redirectRoute)
-                ->with('warning', $this->getWarningMessage($userRole));
+            return redirect()->route($redirectRoute);
+                // ->with('warning', $this->getWarningMessage($userRole));
         }
 
         // 3. كل حاجة تمام → كمّل
