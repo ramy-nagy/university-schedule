@@ -774,7 +774,7 @@
                         <a href="{{ route('admin.student-groups.index') }}"
                             class="nav-link @if (request()->routeIs('admin.student-groups*')) active @endif">
                             <i class="bi bi-people"></i>
-                            <span>المجموعات</span>
+                            <span>الفرق </span>
                         </a>
                     </li>
                     <li class="nav-item">

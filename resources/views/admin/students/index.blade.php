@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-md-4">
                     <select name="group_id" class="form-select">
-                        <option value="">-- كل المجموعات --</option>
+                        <option value="">-- كل الفرق --</option>
                         @foreach($groups as $g)
                             <option value="{{ $g->id }}" {{ request('group_id')==$g->id?'selected':'' }}>{{ $g->name }}</option>
                         @endforeach
@@ -51,7 +51,7 @@
                     <th>#</th>
                     <th>اسم الطالب</th>
                     <th>البريد الإلكتروني</th>
-                    <th>المجموعة</th>
+                    <th>الفرقة </th>
                     <th>أيام الدراسة</th>
                     <th>إجراءات</th>
                 </tr>

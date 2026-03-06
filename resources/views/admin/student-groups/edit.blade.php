@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'تعديل مجموعة')
+@section('title', 'تعديل فرقة ')
 
 @section('content')
 
@@ -8,7 +8,7 @@
 
         <div class="card-header bg-info text-white fw-bold">
             <i class="bi bi-pencil-square me-2"></i>
-            تعديل مجموعة طلابية
+            تعديل فرقة  طلابية
         </div>
 
         <div class="card-body">
@@ -36,14 +36,14 @@
                 @csrf
                 @method('PUT')
 
-                {{-- اسم المجموعة --}}
+                {{-- اسم الفرقة  --}}
                 <div class="mb-3">
                     <label class="form-label">
-                        اسم المجموعة <span class="text-danger">*</span>
+                        اسم الفرقة  <span class="text-danger">*</span>
                     </label>
 
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                        value="{{ old('name', $group->name) }}" placeholder="مثال: المجموعة الأولى" required>
+                        value="{{ old('name', $group->name) }}" placeholder="مثال: الفرقة  الأولى" required>
 
                     @error('name')
                         <div class="invalid-feedback d-block">

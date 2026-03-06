@@ -969,14 +969,14 @@
                     <div class="feature-icon" style="background:#fffbeb;color:#f59e0b"><i
                             class="bi bi-shield-fill-check"></i></div>
                     <h3>كشف التعارض التلقائي</h3>
-                    <p>السيستم يفحص تلقائياً أي تعارض في القاعة أو الدكتور أو المجموعة قبل حفظ أي موعد جديد.</p>
+                    <p>السيستم يفحص تلقائياً أي تعارض في القاعة أو الدكتور أو الفرقة  قبل حفظ أي موعد جديد.</p>
                 </div>
 
                 <div class="feature-card reveal" style="--c1:#8b5cf6;--c2:#3b82f6">
                     <div class="feature-icon" style="background:#f5f3ff;color:#8b5cf6"><i class="bi bi-people-fill"></i>
                     </div>
-                    <h3>إدارة المجموعات الطلابية</h3>
-                    <p>عرّف المجموعات وأيام دراستها وربط كل طالب بمجموعته للحصول على جداول دقيقة ومنظمة.</p>
+                    <h3>إدارة الفرق الطلابية</h3>
+                    <p>عرّف الفرق وأيام دراستها وربط كل طالب بمجموعته للحصول على جداول دقيقة ومنظمة.</p>
                 </div>
 
                 <div class="feature-card reveal" style="--c1:#ef4444;--c2:#f59e0b">
@@ -1011,14 +1011,14 @@
                 <div class="step reveal">
                     <div class="step-num">1</div>
                     <h4>إعداد البيانات</h4>
-                    <p>الأدمن يضيف القاعات والدكاترة والمواد التعليمية والمجموعات الطلابية على النظام.</p>
+                    <p>الأدمن يضيف القاعات والدكاترة والمواد التعليمية والفرق الطلابية على النظام.</p>
                 </div>
 
                 <div class="step reveal" style="position:relative">
                     <div class="step-arrow"><i class="bi bi-chevron-left"></i></div>
                     <div class="step-num">2</div>
                     <h4>جدولة المواعيد</h4>
-                    <p>الأدمن ينشئ التوقيتات الدراسية ويحدد الدكتور والمادة والقاعة والمجموعة والوقت.</p>
+                    <p>الأدمن ينشئ التوقيتات الدراسية ويحدد الدكتور والمادة والقاعة والفرقة  والوقت.</p>
                 </div>
 
                 <div class="step reveal" style="position:relative">
@@ -1061,7 +1061,7 @@
                         <li><i class="bi bi-check-circle-fill"></i> إضافة وتعديل وحذف القاعات</li>
                         <li><i class="bi bi-check-circle-fill"></i> إدارة الدكاترة وحساباتهم</li>
                         <li><i class="bi bi-check-circle-fill"></i> إدارة المواد التعليمية</li>
-                        <li><i class="bi bi-check-circle-fill"></i> إدارة المجموعات الطلابية</li>
+                        <li><i class="bi bi-check-circle-fill"></i> إدارة الفرق الطلابية</li>
                         <li><i class="bi bi-check-circle-fill"></i> إنشاء الجداول مع كشف التعارض</li>
                         <li><i class="bi bi-check-circle-fill"></i> لوحة تحكم إحصائية شاملة</li>
                     </ul>
@@ -1073,7 +1073,7 @@
                     <span class="role-tag">عرض الجدول الشخصي</span>
                     <ul class="role-features">
                         <li><i class="bi bi-check-circle-fill"></i> عرض جدوله الأسبوعي كاملاً</li>
-                        <li><i class="bi bi-check-circle-fill"></i> تفاصيل كل محاضرة (قاعة + مجموعة)</li>
+                        <li><i class="bi bi-check-circle-fill"></i> تفاصيل كل محاضرة (قاعة + فرقة )</li>
                         <li><i class="bi bi-check-circle-fill"></i> عرض محاضرات اليوم بوضوح</li>
                         <li><i class="bi bi-check-circle-fill"></i> المحاضرات القادمة مرتبة بالتاريخ</li>
                         <li><i class="bi bi-check-circle-fill"></i> badge عدد محاضرات اليوم</li>
@@ -1084,7 +1084,7 @@
                 <div class="role-card student reveal">
                     <div class="role-icon">🎓</div>
                     <h3>الطالب (Student)</h3>
-                    <span class="role-tag">جدول المجموعة</span>
+                    <span class="role-tag">جدول الفرقة </span>
                     <ul class="role-features">
                         <li><i class="bi bi-check-circle-fill"></i> عرض جدول مجموعته كاملاً</li>
                         <li><i class="bi bi-check-circle-fill"></i> اسم الدكتور والقاعة لكل حصة</li>
@@ -1133,8 +1133,8 @@
                             style="display:flex;align-items:center;gap:12px;padding:14px 18px;background:#fffbeb;border-radius:12px;border:1px solid #fde68a">
                             <i class="bi bi-people" style="color:#f59e0b;font-size:1.2rem"></i>
                             <div>
-                                <div style="font-weight:700;color:#78350f">المجموعة فاضية؟</div>
-                                <div style="font-size:.82rem;color:#6b7280">هل المجموعة الطلابية عندها حصة في نفس الوقت
+                                <div style="font-weight:700;color:#78350f">الفرقة  فاضية؟</div>
+                                <div style="font-size:.82rem;color:#6b7280">هل الفرقة  الطلابية عندها حصة في نفس الوقت
                                 </div>
                             </div>
                         </div>
@@ -1165,7 +1165,7 @@
                     <div class="conflict-item warn">
                         <div class="check"><i class="bi bi-x-lg"></i></div>
                         <div>
-                            <div class="text">المجموعة الأولى</div>
+                            <div class="text">الفرقة  الأولى</div>
                             <div class="sub">لديها محاضرة في نفس الوقت ✗</div>
                         </div>
                     </div>
@@ -1174,7 +1174,7 @@
                         <i class="bi bi-exclamation-triangle-fill" style="font-size:1.1rem"></i>
                         <div>
                             <div style="font-weight:700;margin-bottom:2px">⚠️ تعارض في المواعيد!</div>
-                            <div style="font-size:.78rem;opacity:.8">المجموعة الطلابية لديها محاضرة أخرى في هذا الوقت
+                            <div style="font-size:.78rem;opacity:.8">الفرقة  الطلابية لديها محاضرة أخرى في هذا الوقت
                             </div>
                         </div>
                     </div>

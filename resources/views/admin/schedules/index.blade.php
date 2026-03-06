@@ -13,7 +13,7 @@
             <thead class="table-light">
                 <tr>
                     <th>الدكتور</th><th>المادة</th><th>القاعة</th>
-                    <th>المجموعة</th><th>التاريخ</th><th>الوقت</th>
+                    <th>الفرقة </th><th>التاريخ</th><th>الوقت</th>
                     <th>النوع</th><th>إجراءات</th>
                 </tr>
             </thead>

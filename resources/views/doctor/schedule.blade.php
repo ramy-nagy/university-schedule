@@ -11,7 +11,7 @@
     </div>
     <div class="card-body p-0">
         <table class="table table-sm mb-0">
-            <thead class="table-primary"><tr><th>المادة</th><th>القاعة</th><th>المجموعة</th><th>الوقت</th><th>النوع</th></tr></thead>
+            <thead class="table-primary"><tr><th>المادة</th><th>القاعة</th><th>الفرقة </th><th>الوقت</th><th>النوع</th></tr></thead>
             <tbody>
                 @foreach($daySchedules as $s)
                 <tr>

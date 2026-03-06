@@ -113,9 +113,9 @@ class StudentGroupSeeder extends Seeder
     public function run(): void
     {
         $groups = [
-            ['name'=>'المجموعة الأولى',  'study_days'=>'السبت,الاثنين,الأربعاء', 'description'=>'تبدأ 8 صباحاً'],
-            ['name'=>'المجموعة الثانية', 'study_days'=>'الأحد,الثلاثاء,الخميس',  'description'=>'تبدأ 10 صباحاً'],
-            ['name'=>'المجموعة الثالثة', 'study_days'=>'السبت,الاثنين,الأربعاء', 'description'=>'تبدأ 12 ظهراً'],
+            ['name'=>'الفرقة  الأولى',  'study_days'=>'السبت,الاثنين,الأربعاء', 'description'=>'تبدأ 8 صباحاً'],
+            ['name'=>'الفرقة  الثانية', 'study_days'=>'الأحد,الثلاثاء,الخميس',  'description'=>'تبدأ 10 صباحاً'],
+            ['name'=>'الفرقة  الثالثة', 'study_days'=>'السبت,الاثنين,الأربعاء', 'description'=>'تبدأ 12 ظهراً'],
         ];
         foreach ($groups as $g) StudentGroup::create($g);
     }
@@ -141,27 +141,27 @@ class UserSeeder extends Seeder
             'role'     => 'admin',
         ]);
 
-        // Students (3 per group)
-        $students = [
-            ['name'=>'علي محمد',    'group'=>1],
-            ['name'=>'فاطمة أحمد',  'group'=>1],
-            ['name'=>'خالد حسن',    'group'=>1],
-            ['name'=>'منى سعيد',    'group'=>2],
-            ['name'=>'عمر طارق',    'group'=>2],
-            ['name'=>'ريم عادل',    'group'=>2],
-            ['name'=>'يوسف كمال',   'group'=>3],
-            ['name'=>'دينا وليد',   'group'=>3],
-            ['name'=>'أسامة فتحي',  'group'=>3],
-        ];
-        foreach ($students as $i => $s) {
-            User::create([
-                'name'             => $s['name'],
-                'email'            => "student" . ($i+1) . "@uni.edu",
-                'password'         => Hash::make('password'),
-                'role'             => 'student',
-                'student_group_id' => $s['group'],
-            ]);
-        }
+        // // Students (3 per group)
+        // $students = [
+        //     ['name'=>'علي محمد',    'group'=>1],
+        //     ['name'=>'فاطمة أحمد',  'group'=>1],
+        //     ['name'=>'خالد حسن',    'group'=>1],
+        //     ['name'=>'منى سعيد',    'group'=>2],
+        //     ['name'=>'عمر طارق',    'group'=>2],
+        //     ['name'=>'ريم عادل',    'group'=>2],
+        //     ['name'=>'يوسف كمال',   'group'=>3],
+        //     ['name'=>'دينا وليد',   'group'=>3],
+        //     ['name'=>'أسامة فتحي',  'group'=>3],
+        // ];
+        // foreach ($students as $i => $s) {
+        //     User::create([
+        //         'name'             => $s['name'],
+        //         'email'            => "student" . ($i+1) . "@uni.edu",
+        //         'password'         => Hash::make('password'),
+        //         'role'             => 'student',
+        //         'student_group_id' => $s['group'],
+        //     ]);
+        // }
     }
 }
 

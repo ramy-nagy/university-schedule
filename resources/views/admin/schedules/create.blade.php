@@ -37,9 +37,9 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">المجموعة الطلابية</label>
+                    <label class="form-label">الفرقة  الطلابية</label>
                     <select name="student_group_id" class="form-select" required>
-                        <option value="">-- اختر المجموعة --</option>
+                        <option value="">-- اختر الفرقة  --</option>
                         @foreach($studentGroups as $g)
                             <option value="{{ $g->id }}">{{ $g->name }}</option>
                         @endforeach

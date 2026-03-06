@@ -27,10 +27,10 @@
                 </div>
 
                 <div class="col-12">
-                    <label class="form-label fw-semibold">المجموعة الدراسية <span class="text-danger">*</span></label>
+                    <label class="form-label fw-semibold">الفرقة  الدراسية <span class="text-danger">*</span></label>
                     <select name="student_group_id"
                             class="form-select @error('student_group_id') is-invalid @enderror" required>
-                        <option value="">-- اختر المجموعة --</option>
+                        <option value="">-- اختر الفرقة  --</option>
                         @foreach($groups as $g)
                         <option value="{{ $g->id }}" {{ old('student_group_id')==$g->id?'selected':'' }}>
                             {{ $g->name }} — {{ $g->study_days }}

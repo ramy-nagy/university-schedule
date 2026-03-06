@@ -48,7 +48,7 @@ class StudentController extends Controller
         ], [
             'name.required'             => 'اسم الطالب مطلوب',
             'email.unique'              => 'هذا البريد مسجل بالفعل',
-            'student_group_id.required' => 'يجب اختيار المجموعة الدراسية',
+            'student_group_id.required' => 'يجب اختيار الفرقة  الدراسية',
             'password.min'              => 'كلمة المرور 8 أحرف على الأقل',
             'password.confirmed'        => 'كلمتا المرور غير متطابقتين',
         ]);

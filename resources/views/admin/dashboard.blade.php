@@ -45,7 +45,7 @@
             <div class="card-body">
                 <div class="fs-2 text-info"><i class="bi bi-people"></i></div>
                 <div class="fs-3 fw-bold">{{ $stats['student_groups'] }}</div>
-                <div class="text-muted small">مجموعة</div>
+                <div class="text-muted small">فرقة </div>
             </div>
         </div>
     </div>
@@ -148,7 +148,7 @@
             <thead class="table-light">
                 <tr>
                     <th>اليوم</th><th>المادة</th><th>الدكتور</th>
-                    <th>القاعة</th><th>المجموعة</th><th>الوقت</th>
+                    <th>القاعة</th><th>الفرقة </th><th>الوقت</th>
                 </tr>
             </thead>
             <tbody>

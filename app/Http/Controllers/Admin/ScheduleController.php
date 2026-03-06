@@ -88,7 +88,7 @@ class ScheduleController extends Controller
         $groupConflict = (clone $q)->where('student_group_id', $data['student_group_id'])->first();
         if ($groupConflict) {
             return ['has_conflict' => true,
-                'message' => "⚠️ المجموعة الطلابية لديها محاضرة أخرى في نفس الوقت"];
+                'message' => "⚠️ الفرقة  الطلابية لديها محاضرة أخرى في نفس الوقت"];
         }
 
         return ['has_conflict' => false, 'message' => ''];

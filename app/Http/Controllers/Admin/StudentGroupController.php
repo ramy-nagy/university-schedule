@@ -38,7 +38,7 @@ class StudentGroupController extends Controller
         StudentGroup::create($validated);
 
         return redirect()->route('admin.student-groups.index')
-            ->with('success', 'تم إضافة المجموعة بنجاح ✅');
+            ->with('success', 'تم إضافة الفرقة  بنجاح ✅');
     }
 
     public function edit(StudentGroup $studentGroup)
@@ -59,20 +59,20 @@ class StudentGroupController extends Controller
         $studentGroup->update($validated);
 
         return redirect()->route('admin.student-groups.index')
-            ->with('success', 'تم تعديل المجموعة بنجاح ✅');
+            ->with('success', 'تم تعديل الفرقة  بنجاح ✅');
     }
 
     public function destroy(StudentGroup $studentGroup)
     {
         if ($studentGroup->schedules()->exists()) {
-            return back()->with('error', '⚠️ لا يمكن حذف المجموعة لوجود جداول مرتبطة بها');
+            return back()->with('error', '⚠️ لا يمكن حذف الفرقة  لوجود جداول مرتبطة بها');
         }
 
         if ($studentGroup->students()->exists()) {
-            return back()->with('error', '⚠️ لا يمكن حذف المجموعة لوجود طلاب مسجلين فيها');
+            return back()->with('error', '⚠️ لا يمكن حذف الفرقة  لوجود طلاب مسجلين فيها');
         }
 
         $studentGroup->delete();
-        return back()->with('success', 'تم حذف المجموعة');
+        return back()->with('success', 'تم حذف الفرقة ');
     }
 }

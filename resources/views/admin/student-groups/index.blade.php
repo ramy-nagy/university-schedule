@@ -1,12 +1,12 @@
 
 @extends('layouts.admin')
-@section('title','المجموعات الطلابية')
+@section('title','الفرق الطلابية')
 @section('content')
 
 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-    <h4 class="mb-0"><i class="bi bi-people me-2 text-info"></i>إدارة المجموعات الطلابية</h4>
+    <h4 class="mb-0"><i class="bi bi-people me-2 text-info"></i>إدارة الفرق الطلابية</h4>
     <a href="{{ route('admin.student-groups.create') }}" class="btn btn-info text-white">
-        <i class="bi bi-plus-lg me-1"></i>إضافة مجموعة
+        <i class="bi bi-plus-lg me-1"></i>إضافة فرقة 
     </a>
 </div>
 
@@ -14,7 +14,7 @@
     <div class="card-body p-0 table-responsive">
         <table class="table table-hover align-middle mb-0">
             <thead class="table-light">
-                <tr><th>#</th><th>اسم المجموعة</th><th>أيام الدراسة</th><th>الطلاب</th><th>الجداول</th><th>إجراءات</th></tr>
+                <tr><th>#</th><th>اسم الفرقة </th><th>أيام الدراسة</th><th>الطلاب</th><th>الجداول</th><th>إجراءات</th></tr>
             </thead>
             <tbody>
                 @forelse($groups as $group)
@@ -33,7 +33,7 @@
                             <i class="bi bi-pencil"></i>
                         </a>
                         <form method="POST" action="{{ route('admin.student-groups.destroy', $group) }}" class="d-inline"
-                              onsubmit="return confirm('حذف هذه المجموعة؟')">
+                              onsubmit="return confirm('حذف هذه الفرقة ؟')">
                             @csrf @method('DELETE')
                             <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                         </form>

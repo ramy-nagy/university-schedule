@@ -53,7 +53,7 @@ return new class extends Migration
         // ══════════════════════════════════════════════════════════
         Schema::create('student_groups', function (Blueprint $table) {
             $table->id();
-            $table->string('name');              // e.g. "المجموعة الأولى"
+            $table->string('name');              // e.g. "الفرقة  الأولى"
             $table->string('study_days');        // e.g. "السبت,الاثنين"
             $table->text('description')->nullable();
             $table->timestamps();

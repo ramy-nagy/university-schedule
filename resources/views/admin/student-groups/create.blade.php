@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
-@section('title', 'إضافة مجموعة')
+@section('title', 'إضافة فرقة ')
 
 @section('content')
     <div class="card" style="max-width:600px;margin:auto;width:100%">
         <div class="card-header bg-info text-white fw-bold">
-            <i class="bi bi-plus-circle me-2"></i>إضافة مجموعة طلابية جديدة
+            <i class="bi bi-plus-circle me-2"></i>إضافة فرقة  طلابية جديدة
         </div>
 
         <div class="card-body">
@@ -23,9 +23,9 @@
             <form method="POST" action="{{ route('admin.student-groups.store') }}">
                 @csrf
 
-                {{-- اسم المجموعة --}}
+                {{-- اسم الفرقة  --}}
                 <div class="mb-3">
-                    <label class="form-label">اسم المجموعة *</label>
+                    <label class="form-label">اسم الفرقة  *</label>
                     <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
                 </div>
 

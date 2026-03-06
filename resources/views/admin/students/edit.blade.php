@@ -28,7 +28,7 @@
                     @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
                 <div class="col-12">
-                    <label class="form-label fw-semibold">المجموعة الدراسية</label>
+                    <label class="form-label fw-semibold">الفرقة  الدراسية</label>
                     <select name="student_group_id" class="form-select" required>
                         @foreach($groups as $g)
                         <option value="{{ $g->id }}"
