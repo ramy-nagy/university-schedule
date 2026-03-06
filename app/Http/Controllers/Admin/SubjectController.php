@@ -31,7 +31,7 @@ class SubjectController extends Controller
     {
         $request->validate([
             'name'        => 'required|string|max:100',
-            'code'        => 'required|string|max:20|unique:subjects,code',
+            // 'code'        => 'required|string|max:20|unique:subjects,code',
             'doctor_id'   => 'required|exists:doctors,id',
             'description' => 'nullable|string|max:500',
         ]);
@@ -52,7 +52,7 @@ class SubjectController extends Controller
     {
         $request->validate([
             'name'        => 'required|string|max:100',
-            'code'        => 'required|string|max:20|unique:subjects,code,' . $subject->id,
+            // 'code'        => 'required|string|max:20|unique:subjects,code,' . $subject->id,
             'doctor_id'   => 'required|exists:doctors,id',
             'description' => 'nullable|string|max:500',
         ]);

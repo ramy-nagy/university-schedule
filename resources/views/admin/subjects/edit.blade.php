@@ -15,12 +15,12 @@
                        value="{{ old('name', $subject->name) }}" required>
                 @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label class="form-label">كود المادة <span class="text-danger">*</span></label>
                 <input type="text" name="code" class="form-control @error('code') is-invalid @enderror"
                        value="{{ old('code', $subject->code) }}" placeholder="مثال: CS101" required>
                 @error('code')<div class="invalid-feedback">{{ $message }}</div>@enderror
-            </div>
+            </div> --}}
             <div class="mb-3">
                 <label class="form-label">الدكتور المسؤول <span class="text-danger">*</span></label>
                 <select name="doctor_id" class="form-select @error('doctor_id') is-invalid @enderror" required>

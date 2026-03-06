@@ -24,10 +24,10 @@
                     <td>{{ $s->subject->name }}</td>
                     <td><span class="badge bg-secondary">{{ $s->hall->name }}</span></td>
                     <td>{{ $s->studentGroup->name }}</td>
-                    <td>{{ $s->date->format('Y/m/d') }}<br><small class="text-muted">{{ $s->date->translatedFormat('l') }}</small></td>
+                    <td>{{ $s->day_of_week_label }}</td>
                     <td>{{ $s->start_time }} – {{ $s->end_time }}</td>
                     <td>
-                        <span class="badge {{ $s->type === 'lecture' ? 'badge-lecture' : 'badge-lab' }} text-white">
+                        <span class="badge {{ $s->type === 'lecture' ? 'badge-success' : 'badge-warning' }} text-white">
                             {{ $s->type === 'lecture' ? 'محاضرة' : 'معمل' }}
                         </span>
                     </td>

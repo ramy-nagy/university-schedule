@@ -14,14 +14,14 @@
     <div class="card-body p-0">
         <table class="table table-hover align-middle mb-0">
             <thead class="table-light">
-                <tr><th>#</th><th>اسم المادة</th><th>الكود</th><th>الدكتور</th><th>الجداول</th><th>إجراءات</th></tr>
+                <tr><th>#</th><th>اسم المادة</th><th>الدكتور</th><th>الجداول</th><th>إجراءات</th></tr>
             </thead>
             <tbody>
                 @forelse($subjects as $subject)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td><strong>{{ $subject->name }}</strong></td>
-                    <td><span class="badge bg-dark">{{ $subject->code }}</span></td>
+                    {{-- <td><span class="badge bg-dark">{{ $subject->code }}</span></td> --}}
                     <td>{{ $subject->doctor->name }}</td>
                     <td><span class="badge bg-secondary">{{ $subject->schedules_count }}</span></td>
                     <td>

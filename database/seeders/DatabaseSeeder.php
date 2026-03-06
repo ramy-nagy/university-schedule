@@ -88,14 +88,14 @@ class SubjectSeeder extends Seeder
     public function run(): void
     {
         $subjects = [
-            ['name'=>'برمجة 1',             'code'=>'CS101','doctor_id'=>1],
-            ['name'=>'برمجة 2',             'code'=>'CS102','doctor_id'=>1],
-            ['name'=>'قواعد البيانات',       'code'=>'IS201','doctor_id'=>2],
-            ['name'=>'نظم المعلومات',        'code'=>'IS202','doctor_id'=>2],
-            ['name'=>'شبكات الحاسب',        'code'=>'NT301','doctor_id'=>3],
-            ['name'=>'أمن المعلومات',        'code'=>'NT302','doctor_id'=>3],
-            ['name'=>'تعلم الآلة',           'code'=>'AI401','doctor_id'=>4],
-            ['name'=>'معالجة اللغات الطبيعية','code'=>'AI402','doctor_id'=>4],
+            ['name'=>'برمجة 1',             'doctor_id'=>1],
+            ['name'=>'برمجة 2',             'doctor_id'=>1],
+            ['name'=>'قواعد البيانات',       'doctor_id'=>2],
+            ['name'=>'نظم المعلومات',        'doctor_id'=>2],
+            ['name'=>'شبكات الحاسب',        'doctor_id'=>3],
+            ['name'=>'أمن المعلومات',        'doctor_id'=>3],
+            ['name'=>'تعلم الآلة',           'doctor_id'=>4],
+            ['name'=>'معالجة اللغات الطبيعية','doctor_id'=>4],
         ];
         foreach ($subjects as $s) Subject::create($s);
     }
@@ -177,16 +177,40 @@ class ScheduleSeeder extends Seeder
     public function run(): void
     {
         $schedules = [
-            // Group 1 - السبت
-            ['doctor_id'=>1,'subject_id'=>1,'hall_id'=>1,'student_group_id'=>1,'date'=>'2025-09-06','start_time'=>'08:00','end_time'=>'10:00','type'=>'lecture'],
-            ['doctor_id'=>2,'subject_id'=>3,'hall_id'=>2,'student_group_id'=>1,'date'=>'2025-09-06','start_time'=>'10:00','end_time'=>'12:00','type'=>'lecture'],
-            ['doctor_id'=>1,'subject_id'=>1,'hall_id'=>4,'student_group_id'=>1,'date'=>'2025-09-08','start_time'=>'08:00','end_time'=>'10:00','type'=>'lab'],
-            // Group 2 - الأحد
-            ['doctor_id'=>3,'subject_id'=>5,'hall_id'=>1,'student_group_id'=>2,'date'=>'2025-09-07','start_time'=>'10:00','end_time'=>'12:00','type'=>'lecture'],
-            ['doctor_id'=>4,'subject_id'=>7,'hall_id'=>3,'student_group_id'=>2,'date'=>'2025-09-07','start_time'=>'12:00','end_time'=>'14:00','type'=>'lecture'],
-            // Group 3 - السبت (وقت مختلف)
-            ['doctor_id'=>2,'subject_id'=>4,'hall_id'=>3,'student_group_id'=>3,'date'=>'2025-09-06','start_time'=>'12:00','end_time'=>'14:00','type'=>'lecture'],
-            ['doctor_id'=>3,'subject_id'=>6,'hall_id'=>5,'student_group_id'=>3,'date'=>'2025-09-08','start_time'=>'10:00','end_time'=>'12:00','type'=>'lab'],
+            // Group 1 - السبت والاثنين والأربعاء (08:00 - 14:00)
+            // Saturday
+            ['doctor_id'=>1,'subject_id'=>1,'hall_id'=>1,'student_group_id'=>1,'day_of_week'=>'saturday','start_time'=>'08:00','end_time'=>'10:00','type'=>'lecture'],
+            ['doctor_id'=>2,'subject_id'=>3,'hall_id'=>2,'student_group_id'=>1,'day_of_week'=>'saturday','start_time'=>'10:00','end_time'=>'12:00','type'=>'lecture'],
+            ['doctor_id'=>3,'subject_id'=>5,'hall_id'=>3,'student_group_id'=>1,'day_of_week'=>'saturday','start_time'=>'12:00','end_time'=>'14:00','type'=>'lecture'],
+            // Monday
+            ['doctor_id'=>1,'subject_id'=>1,'hall_id'=>4,'student_group_id'=>1,'day_of_week'=>'monday','start_time'=>'08:00','end_time'=>'10:00','type'=>'lab'],
+            ['doctor_id'=>2,'subject_id'=>3,'hall_id'=>5,'student_group_id'=>1,'day_of_week'=>'monday','start_time'=>'10:00','end_time'=>'12:00','type'=>'lab'],
+            ['doctor_id'=>4,'subject_id'=>7,'hall_id'=>1,'student_group_id'=>1,'day_of_week'=>'monday','start_time'=>'12:00','end_time'=>'14:00','type'=>'lecture'],
+            // Wednesday
+            ['doctor_id'=>3,'subject_id'=>5,'hall_id'=>2,'student_group_id'=>1,'day_of_week'=>'wednesday','start_time'=>'08:00','end_time'=>'10:00','type'=>'lecture'],
+            ['doctor_id'=>1,'subject_id'=>2,'hall_id'=>3,'student_group_id'=>1,'day_of_week'=>'wednesday','start_time'=>'10:00','end_time'=>'12:00','type'=>'lecture'],
+            ['doctor_id'=>2,'subject_id'=>4,'hall_id'=>6,'student_group_id'=>1,'day_of_week'=>'wednesday','start_time'=>'12:00','end_time'=>'14:00','type'=>'lab'],
+
+            // Group 2 - الأحد والثلاثاء والخميس (10:00 - 14:00)
+            // Sunday
+            ['doctor_id'=>3,'subject_id'=>5,'hall_id'=>1,'student_group_id'=>2,'day_of_week'=>'sunday','start_time'=>'10:00','end_time'=>'12:00','type'=>'lecture'],
+            ['doctor_id'=>4,'subject_id'=>7,'hall_id'=>2,'student_group_id'=>2,'day_of_week'=>'sunday','start_time'=>'12:00','end_time'=>'14:00','type'=>'lecture'],
+            // Tuesday
+            ['doctor_id'=>1,'subject_id'=>1,'hall_id'=>4,'student_group_id'=>2,'day_of_week'=>'tuesday','start_time'=>'10:00','end_time'=>'12:00','type'=>'lab'],
+            ['doctor_id'=>3,'subject_id'=>6,'hall_id'=>5,'student_group_id'=>2,'day_of_week'=>'tuesday','start_time'=>'12:00','end_time'=>'14:00','type'=>'lab'],
+            // Thursday
+            ['doctor_id'=>2,'subject_id'=>3,'hall_id'=>3,'student_group_id'=>2,'day_of_week'=>'thursday','start_time'=>'10:00','end_time'=>'12:00','type'=>'lecture'],
+            ['doctor_id'=>4,'subject_id'=>8,'hall_id'=>1,'student_group_id'=>2,'day_of_week'=>'thursday','start_time'=>'12:00','end_time'=>'14:00','type'=>'lecture'],
+
+            // Group 3 - السبت والاثنين والأربعاء (12:00 - 14:00)
+            // Saturday
+            ['doctor_id'=>2,'subject_id'=>4,'hall_id'=>3,'student_group_id'=>3,'day_of_week'=>'saturday','start_time'=>'12:00','end_time'=>'14:00','type'=>'lecture'],
+            // Monday
+            ['doctor_id'=>3,'subject_id'=>6,'hall_id'=>4,'student_group_id'=>3,'day_of_week'=>'monday','start_time'=>'10:00','end_time'=>'12:00','type'=>'lab'],
+            ['doctor_id'=>1,'subject_id'=>2,'hall_id'=>5,'student_group_id'=>3,'day_of_week'=>'monday','start_time'=>'12:00','end_time'=>'14:00','type'=>'lab'],
+            // Wednesday
+            ['doctor_id'=>4,'subject_id'=>8,'hall_id'=>2,'student_group_id'=>3,'day_of_week'=>'wednesday','start_time'=>'10:00','end_time'=>'12:00','type'=>'lecture'],
+            ['doctor_id'=>2,'subject_id'=>3,'hall_id'=>1,'student_group_id'=>3,'day_of_week'=>'wednesday','start_time'=>'12:00','end_time'=>'14:00','type'=>'lecture'],
         ];
         foreach ($schedules as $s) Schedule::create($s);
     }

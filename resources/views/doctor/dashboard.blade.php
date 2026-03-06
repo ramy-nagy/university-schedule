@@ -71,15 +71,14 @@
     {{-- Upcoming Lectures --}}
     <div class="col-lg-5">
         <div class="card">
-            <div class="card-header bg-light fw-bold">
-                <i class="bi bi-clock-history me-2 text-primary"></i>المحاضرات القادمة
+            <div class="card-header bg-primary text-white fw-bold">
+                <i class="bi bi-clock-history me-2"></i>المحاضرات القادمة
             </div>
             <div class="card-body p-0">
                 @forelse($upcomingSchedules as $s)
                 <div class="d-flex align-items-center px-3 py-3 border-bottom">
                     <div class="me-3 text-center" style="min-width:45px">
-                        <div class="fw-bold text-primary small">{{ $s->date->format('d') }}</div>
-                        <div class="text-muted" style="font-size:.7rem">{{ $s->date->translatedFormat('M') }}</div>
+                        <div class="fw-bold text-primary small">{{ $s->day_of_week_label }}</div>
                     </div>
                     <div class="flex-grow-1">
                         <div class="fw-semibold small">{{ $s->subject->name }}</div>

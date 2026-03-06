@@ -8,6 +8,7 @@ use App\Models\Doctor;
 use App\Models\Subject;
 use App\Models\StudentGroup;
 use App\Models\Schedule;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -20,7 +21,7 @@ class DashboardController extends Controller
             'subjects'       => Subject::count(),
             'student_groups' => StudentGroup::count(),
             'schedules'      => Schedule::count(),
-            'upcoming'       => Schedule::where('date', '>=', today())->count(),
+            'upcoming'       => Schedule::count(),
         ];
 
         // ── آخر 5 جداول مضافة ────────────────────────────────
@@ -29,19 +30,38 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        // ── جداول اليوم ───────────────────────────────────────
+        // ── جداول اليوم (حسب يوم الأسبوع الحالي) ────────────
+        $dayOfWeekMap = [
+            'Saturday' => 'saturday',
+            'Sunday' => 'sunday',
+            'Monday' => 'monday',
+            'Tuesday' => 'tuesday',
+            'Wednesday' => 'wednesday',
+            'Thursday' => 'thursday',
+            'Friday' => 'friday',
+        ];
+        $todayEnglishDay = today()->format('l');
+        $todayKey = $dayOfWeekMap[$todayEnglishDay] ?? 'monday';
+        
         $todaySchedules = Schedule::with(['doctor', 'subject', 'hall', 'studentGroup'])
-            ->where('date', today())
+            ->forDay($todayKey)
             ->orderBy('start_time')
             ->get();
 
-        // ── جداول الأسبوع القادم (7 أيام) ────────────────────
+        // ── جداول الأسبوع (جميع أيام الأسبوع) ────────────────
         $weekSchedules = Schedule::with(['doctor', 'subject', 'hall', 'studentGroup'])
-            ->whereBetween('date', [today(), today()->addDays(7)])
-            ->orderBy('date')
+            ->orderByRaw(DB::raw("CASE day_of_week
+                WHEN 'saturday' THEN 0
+                WHEN 'sunday' THEN 1
+                WHEN 'monday' THEN 2
+                WHEN 'tuesday' THEN 3
+                WHEN 'wednesday' THEN 4
+                WHEN 'thursday' THEN 5
+                WHEN 'friday' THEN 6
+            END"))
             ->orderBy('start_time')
             ->get()
-            ->groupBy(fn($s) => $s->date->format('Y-m-d'));
+            ->groupBy('day_of_week_label');
 
         return view('admin.dashboard', compact(
             'stats',

@@ -118,7 +118,7 @@
                         <div class="text-muted small">
                             {{ $s->doctor->name }} ·
                             {{ $s->studentGroup->name }} ·
-                            {{ $s->date->format('d/m/Y') }}
+                            {{ $s->day_of_week_label }}
                         </div>
                     </div>
                     <span class="badge bg-secondary">{{ $s->hall->name }}</span>
@@ -141,7 +141,7 @@
 @if($weekSchedules->count())
 <div class="card mt-4">
     <div class="card-header bg-light fw-bold">
-        <i class="bi bi-calendar-week me-2 text-primary"></i>جداول الأسبوع القادم
+        <i class="bi bi-calendar-week me-2 text-primary"></i>جداول الأسبوع
     </div>
     <div class="card-body p-0">
         <table class="table table-hover mb-0 align-middle">
@@ -152,13 +152,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($weekSchedules as $date => $dayItems)
+                @foreach($weekSchedules as $dayLabel => $dayItems)
                     @foreach($dayItems as $i => $s)
                     <tr>
                         @if($i === 0)
                         <td rowspan="{{ $dayItems->count() }}" class="fw-bold text-primary align-middle">
-                            {{ \Carbon\Carbon::parse($date)->translatedFormat('l') }}<br>
-                            <small class="text-muted fw-normal">{{ \Carbon\Carbon::parse($date)->format('d/m') }}</small>
+                            {{ $dayLabel }}
                         </td>
                         @endif
                         <td>{{ $s->subject->name }}</td>

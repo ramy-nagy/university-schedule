@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\{User, StudentGroup, Schedule};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
@@ -72,14 +73,36 @@ class StudentController extends Controller
 
         $schedules = Schedule::with(['doctor', 'subject', 'hall'])
             ->where('student_group_id', $student->student_group_id)
-            ->orderBy('date')->orderBy('start_time')
+            ->orderByRaw(DB::raw("CASE day_of_week
+                WHEN 'saturday' THEN 0
+                WHEN 'sunday' THEN 1
+                WHEN 'monday' THEN 2
+                WHEN 'tuesday' THEN 3
+                WHEN 'wednesday' THEN 4
+                WHEN 'thursday' THEN 5
+                WHEN 'friday' THEN 6
+            END"))
+            ->orderBy('start_time')
             ->get()
-            ->groupBy(fn($s) => $s->date->format('Y-m-d'));
+            ->groupBy('day_of_week_label');
+
+        // Get today's day of week
+        $dayOfWeekMap = [
+            'Saturday' => 'saturday',
+            'Sunday' => 'sunday',
+            'Monday' => 'monday',
+            'Tuesday' => 'tuesday',
+            'Wednesday' => 'wednesday',
+            'Thursday' => 'thursday',
+            'Friday' => 'friday',
+        ];
+        $todayEnglishDay = today()->format('l');
+        $todayKey = $dayOfWeekMap[$todayEnglishDay] ?? 'monday';
 
         $stats = [
             'total'    => Schedule::where('student_group_id', $student->student_group_id)->count(),
-            'upcoming' => Schedule::where('student_group_id', $student->student_group_id)->where('date', '>=', today())->count(),
-            'today'    => Schedule::where('student_group_id', $student->student_group_id)->where('date', today())->count(),
+            'upcoming' => Schedule::where('student_group_id', $student->student_group_id)->count(),
+            'today'    => Schedule::where('student_group_id', $student->student_group_id)->where('day_of_week', $todayKey)->count(),
             'lectures' => Schedule::where('student_group_id', $student->student_group_id)->where('type', 'lecture')->count(),
             'labs'     => Schedule::where('student_group_id', $student->student_group_id)->where('type', 'lab')->count(),
         ];

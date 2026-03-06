@@ -124,7 +124,7 @@
     }
 
     .schedule-card {
-        background: #fff;
+        /* background: #fff; */
         border-radius: 16px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         overflow: hidden;
@@ -542,7 +542,7 @@
         @foreach($upcomingSchedules as $s)
             <div class="upcoming-card">
                 <div class="upcoming-date">
-                    {{ $s->date->format('d/m/Y') }}
+                    {{ $s->day_of_week_label }}
                 </div>
                 <div class="upcoming-subject">{{ $s->subject->name }}</div>
                 <div class="upcoming-details">

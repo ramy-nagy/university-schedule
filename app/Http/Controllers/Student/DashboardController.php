@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -20,38 +21,44 @@ class DashboardController extends Controller
         // ── إحصاء إجمالي المحاضرات ────────────────────────
         $totalSchedules = Schedule::forGroup($groupId)->count();
 
-        // ── محاضرات اليوم ──────────────────────────────────
+        // ── محاضرات اليوم (حسب يوم الأسبوع الحالي) ────────
+        $dayOfWeekMap = [
+            'Saturday' => 'saturday',
+            'Sunday' => 'sunday',
+            'Monday' => 'monday',
+            'Tuesday' => 'tuesday',
+            'Wednesday' => 'wednesday',
+            'Thursday' => 'thursday',
+            'Friday' => 'friday',
+        ];
+        $todayEnglishDay = today()->format('l');
+        $todayKey = $dayOfWeekMap[$todayEnglishDay] ?? 'monday';
+        
         $todaySchedules = Schedule::with([
             'doctor',
             'subject',
             'hall'
         ])
             ->forGroup($groupId)
-            ->forDate(today())
+            ->forDay($todayKey)
             ->orderBy('start_time')
             ->get();
 
-        // ── المحاضرات القادمة (3 محاضرات) ────────────────
+        // ── المحاضرات (3 محاضرات) ──────────────────────
         $upcomingSchedules = Schedule::with([
             'doctor',
             'subject',
             'hall'
         ])
             ->forGroup($groupId)
-            ->where('date', '>', today())
-            ->orderBy('date')
+            ->orderBy('day_of_week')
             ->orderBy('start_time')
             ->take(3)
             ->get();
 
         // ── إحصائيات إضافية ────────────────────────────────
-        // عدد المحاضرات هذا الأسبوع
-        $weekSchedules = Schedule::forGroup($groupId)
-            ->whereBetween('date', [
-                today()->startOfWeek(),
-                today()->endOfWeek()
-            ])
-            ->count();
+        // عدد المحاضرات في الأسبوع
+        $weekSchedules = Schedule::forGroup($groupId)->count();
 
         // عدد المعامل
         $labCount = Schedule::forGroup($groupId)
@@ -89,22 +96,24 @@ class DashboardController extends Controller
             'hall'
         ])
             ->forGroup($groupId)
-            ->where('date', '>=', today())
-            ->orderBy('date')
+            ->orderByRaw(DB::raw("CASE day_of_week
+                WHEN 'saturday' THEN 0
+                WHEN 'sunday' THEN 1
+                WHEN 'monday' THEN 2
+                WHEN 'tuesday' THEN 3
+                WHEN 'wednesday' THEN 4
+                WHEN 'thursday' THEN 5
+                WHEN 'friday' THEN 6
+            END"))
             ->orderBy('start_time')
             ->get()
-            ->groupBy(function ($schedule) {
-                return $schedule->date->format('Y-m-d');
-            });
+            ->groupBy('day_of_week_label');
 
         // ── إحصائيات الجدول ────────────────────────────────
-        $totalUpcoming = Schedule::forGroup($groupId)
-            ->where('date', '>=', today())
-            ->count();
+        $totalUpcoming = Schedule::forGroup($groupId)->count();
 
         $nextLecture = Schedule::forGroup($groupId)
-            ->where('date', '>=', today())
-            ->orderBy('date')
+            ->orderBy('day_of_week')
             ->orderBy('start_time')
             ->first();
 
@@ -123,6 +132,18 @@ class DashboardController extends Controller
     public function todayJson()
     {
         $groupId = auth()->user()->student_group_id;
+        
+        $dayOfWeekMap = [
+            'Saturday' => 'saturday',
+            'Sunday' => 'sunday',
+            'Monday' => 'monday',
+            'Tuesday' => 'tuesday',
+            'Wednesday' => 'wednesday',
+            'Thursday' => 'thursday',
+            'Friday' => 'friday',
+        ];
+        $todayEnglishDay = today()->format('l');
+        $todayKey = $dayOfWeekMap[$todayEnglishDay] ?? 'monday';
 
         $schedules = Schedule::with([
             'doctor',
@@ -130,7 +151,7 @@ class DashboardController extends Controller
             'hall'
         ])
             ->forGroup($groupId)
-            ->forDate(today())
+            ->forDay($todayKey)
             ->orderBy('start_time')
             ->get();
 
@@ -156,8 +177,7 @@ class DashboardController extends Controller
             'hall'
         ])
             ->forGroup($groupId)
-            ->where('date', '>', today())
-            ->orderBy('date')
+            ->orderBy('day_of_week')
             ->orderBy('start_time')
             ->take(5)
             ->get();
@@ -180,23 +200,12 @@ class DashboardController extends Controller
 
         $stats = [
             'total' => Schedule::forGroup($groupId)->count(),
-            'this_week' => Schedule::forGroup($groupId)
-                ->whereBetween('date', [
-                    today()->startOfWeek(),
-                    today()->endOfWeek()
-                ])
-                ->count(),
+            'week_count' => Schedule::forGroup($groupId)->count(),
             'lectures' => Schedule::forGroup($groupId)
                 ->where('type', 'lecture')
                 ->count(),
             'labs' => Schedule::forGroup($groupId)
                 ->where('type', 'lab')
-                ->count(),
-            'this_month' => Schedule::forGroup($groupId)
-                ->whereBetween('date', [
-                    today()->startOfMonth(),
-                    today()->endOfMonth()
-                ])
                 ->count(),
         ];
 
@@ -221,13 +230,18 @@ class DashboardController extends Controller
             'hall'
         ])
             ->forGroup($groupId)
-            ->where('date', '>=', today())
-            ->orderBy('date')
+            ->orderByRaw(DB::raw("CASE day_of_week
+                WHEN 'saturday' THEN 0
+                WHEN 'sunday' THEN 1
+                WHEN 'monday' THEN 2
+                WHEN 'tuesday' THEN 3
+                WHEN 'wednesday' THEN 4
+                WHEN 'thursday' THEN 5
+                WHEN 'friday' THEN 6
+            END"))
             ->orderBy('start_time')
             ->get()
-            ->groupBy(function ($schedule) {
-                return $schedule->date->format('Y-m-d');
-            });
+            ->groupBy('day_of_week_label');
 
         // You can use a PDF library like DomPDF here
         // For now, we'll just return the data
@@ -242,17 +256,23 @@ class DashboardController extends Controller
     /**
      * Get schedule filtered by date range
      *
-     * @param string $startDate
-     * @param string $endDate
+     * @param string $startDay
+     * @param string $endDay
      * @return \Illuminate\Http\JsonResponse
      */
-    public function filterByDateRange($startDate, $endDate)
+    public function filterByDateRange($startDay, $endDay)
     {
         $groupId = auth()->user()->student_group_id;
 
         try {
-            $start = Carbon::parse($startDate);
-            $end = Carbon::parse($endDate);
+            $validDays = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+            
+            if (!in_array($startDay, $validDays) || !in_array($endDay, $validDays)) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid day of week'
+                ], 400);
+            }
 
             $schedules = Schedule::with([
                 'doctor',
@@ -260,13 +280,19 @@ class DashboardController extends Controller
                 'hall'
             ])
                 ->forGroup($groupId)
-                ->whereBetween('date', [$start, $end])
-                ->orderBy('date')
+                ->whereIn('day_of_week', $validDays)
+                ->orderByRaw(DB::raw("CASE day_of_week
+                    WHEN 'saturday' THEN 0
+                    WHEN 'sunday' THEN 1
+                    WHEN 'monday' THEN 2
+                    WHEN 'tuesday' THEN 3
+                    WHEN 'wednesday' THEN 4
+                    WHEN 'thursday' THEN 5
+                    WHEN 'friday' THEN 6
+                END"))
                 ->orderBy('start_time')
                 ->get()
-                ->groupBy(function ($schedule) {
-                    return $schedule->date->format('Y-m-d');
-                });
+                ->groupBy('day_of_week_label');
 
             return response()->json([
                 'status' => 'success',
@@ -276,7 +302,7 @@ class DashboardController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Invalid date range'
+                'message' => 'Invalid parameters'
             ], 400);
         }
     }

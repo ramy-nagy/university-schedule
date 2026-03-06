@@ -4,10 +4,10 @@
 @section('content')
 <h4 class="mb-4"><i class="bi bi-calendar3 me-2 text-primary"></i>جدولي الدراسي — {{ $doctor->name }}</h4>
 
-@forelse($schedules as $date => $daySchedules)
+@forelse($schedules as $dayLabel => $daySchedules)
 <div class="card mb-3">
     <div class="card-header bg-light fw-bold">
-        <i class="bi bi-calendar-day me-2"></i>{{ \Carbon\Carbon::parse($date)->translatedFormat('l، d F Y') }}
+        <i class="bi bi-calendar-day me-2"></i>{{ $dayLabel }}
     </div>
     <div class="card-body p-0">
         <table class="table table-sm mb-0">

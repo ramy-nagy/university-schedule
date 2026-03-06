@@ -37,9 +37,10 @@ class ScheduleController extends Controller
             'subject_id'       => 'required|exists:subjects,id',
             'hall_id'          => 'required|exists:halls,id',
             'student_group_id' => 'required|exists:student_groups,id',
-            'date'             => 'required|date',
+            'day_of_week'      => 'required|in:saturday,sunday,monday,tuesday,wednesday,thursday,friday',
             'start_time'       => 'required|date_format:H:i',
             'end_time'         => 'required|date_format:H:i|after:start_time',
+            'type'             => 'required|in:lecture,lab',
         ]);
 
         // ── Conflict Detection ────────────────────────────────
@@ -58,7 +59,7 @@ class ScheduleController extends Controller
     // ── Core Conflict Detection Method ────────────────────────
     private function detectConflicts(array $data, $excludeId = null): array
     {
-        $q = Schedule::where('date', $data['date'])
+        $q = Schedule::where('day_of_week', $data['day_of_week'])
             ->where(fn($q) =>
                 $q->whereBetween('start_time', [$data['start_time'], $data['end_time']])
                   ->orWhereBetween('end_time', [$data['start_time'], $data['end_time']])
@@ -112,9 +113,10 @@ class ScheduleController extends Controller
             'subject_id'       => 'required|exists:subjects,id',
             'hall_id'          => 'required|exists:halls,id',
             'student_group_id' => 'required|exists:student_groups,id',
-            'date'             => 'required|date',
+            'day_of_week'      => 'required|in:saturday,sunday,monday,tuesday,wednesday,thursday,friday',
             'start_time'       => 'required|date_format:H:i',
             'end_time'         => 'required|date_format:H:i|after:start_time',
+            'type'             => 'required|in:lecture,lab',
         ]);
 
         $conflicts = $this->detectConflicts($data, $schedule->id);

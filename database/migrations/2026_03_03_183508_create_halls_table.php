@@ -42,7 +42,7 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('code')->unique();    // e.g. "CS101"
+            // $table->string('code')->unique();    // e.g. "CS101"
             $table->foreignId('doctor_id')->constrained()->onDelete('cascade');
             $table->text('description')->nullable();
             $table->timestamps();
@@ -69,16 +69,16 @@ return new class extends Migration
             $table->foreignId('subject_id')->constrained()->onDelete('cascade');
             $table->foreignId('hall_id')->constrained()->onDelete('cascade');
             $table->foreignId('student_group_id')->constrained()->onDelete('cascade');
-            $table->date('date');
+            $table->string('day_of_week'); // e.g. "saturday", "sunday", ...
             $table->time('start_time');
             $table->time('end_time');
             $table->string('type')->default('lecture'); // 'lecture' | 'lab'
             $table->timestamps();
 
             // Indexes for fast conflict checking
-            $table->index(['hall_id', 'date', 'start_time', 'end_time']);
-            $table->index(['doctor_id', 'date', 'start_time', 'end_time']);
-            $table->index(['student_group_id', 'date', 'start_time', 'end_time']);
+            $table->index(['hall_id', 'day_of_week', 'start_time', 'end_time']);
+            $table->index(['doctor_id', 'day_of_week', 'start_time', 'end_time']);
+            $table->index(['student_group_id', 'day_of_week', 'start_time', 'end_time']);
         });
 
         // ══════════════════════════════════════════════════════════

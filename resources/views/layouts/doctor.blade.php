@@ -301,7 +301,7 @@
 
         .card-header {
             border-radius: 16px 16px 0 0 !important;
-            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            /* background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); */
             border-bottom: none;
             padding: 24px !important;
             font-weight: 700;
@@ -815,14 +815,14 @@
                     <li class="nav-item">
                         <a href="{{ route('doctor.dashboard') }}"
                            class="nav-link @if(request()->routeIs('doctor.dashboard')) active @endif">
-                            <i class="bi bi-speedometer2"></i>
+                            <i class="bi bi-speedometer2 mx-2"></i>
                             <span>الرئيسية</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('doctor.schedule') }}"
                            class="nav-link @if(request()->routeIs('doctor.schedule')) active @endif">
-                            <i class="bi bi-calendar-week"></i>
+                            <i class="bi bi-calendar-week mx-2"></i>
                             <span>جدولي الدراسي</span>
                             @php
                                 $todayCount = \App\Models\Schedule::where('doctor_id', auth()->user()->doctor_id)
@@ -861,7 +861,7 @@
     </nav>
 
     {{-- ── Main Content ────────────────────────────────────────── --}}
-    <div class="container">
+    <div class="container mt-4">
 
         {{-- Page Header --}}
         <div class="page-header">

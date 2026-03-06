@@ -81,12 +81,12 @@
     </div>
 
     {{-- Full Schedule --}}
-    @forelse($schedules as $date => $daySchedules)
+    @forelse($schedules as $dayLabel => $daySchedules)
         <div class="card mb-3" style="border-right: 4px solid #0d6efd">
             <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
                 <span>
                     <i class="bi bi-calendar-day me-2 text-primary"></i>
-                    {{ \Carbon\Carbon::parse($date)->translatedFormat('l، d F Y') }}
+                    {{ $dayLabel }}
                 </span>
                 <span class="badge bg-primary bg-opacity-10 text-primary">
                     {{ $daySchedules->count() }} {{ $daySchedules->count() == 1 ? 'حصة' : 'حصص' }}

@@ -344,19 +344,19 @@
 </div>
 
 {{-- Schedule Items --}}
-@forelse($schedules as $date => $daySchedules)
+@forelse($schedules as $dayLabel => $daySchedules)
     <div class="day-schedule">
         <div class="day-header">
             <i class="bi bi-calendar-event"></i>
-            {{ \Carbon\Carbon::parse($date)->translatedFormat('l، d F Y') }}
+            {{ $dayLabel }}
         </div>
 
         @foreach($daySchedules as $s)
             <div class="schedule-item">
                 <div class="time-block">
-                    <div class="start-time">{{ \Carbon\Carbon::parse($s->start_time)->format('H:i') }}</div>
+                    <div class="start-time">{{ $s->start_time }}</div>
                     <div class="time-divider"></div>
-                    <div class="end-time">{{ \Carbon\Carbon::parse($s->end_time)->format('H:i') }}</div>
+                    <div class="end-time">{{ $s->end_time }}</div>
                 </div>
 
                 <div class="subject-info">
