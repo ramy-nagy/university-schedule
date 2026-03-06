@@ -1,10 +1,8 @@
 {{-- ══════════════════════════════════════════════════════ --}}
 {{-- FILE: resources/views/student/dashboard.blade.php     --}}
 {{-- ══════════════════════════════════════════════════════ --}}
-@extends('layouts.student')
-@section('title', 'الرئيسية')
-@section('show_banner') @endsection
-
+@extends('layouts.admin')
+@section('title', 'لوحة تحكم الطالب')
 @section('content')
 
 {{-- ── Welcome + Group Info ─────────────────────────────── --}}

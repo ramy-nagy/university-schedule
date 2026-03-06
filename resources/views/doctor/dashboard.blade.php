@@ -1,7 +1,6 @@
 
-@extends('layouts.doctor')
-@section('title', 'الرئيسية')
-
+@extends('layouts.admin')
+@section('title', 'لوحة تحكم الدكتور')
 @section('content')
 
 {{-- ── Mini Stats Row ───────────────────────────────────── --}}

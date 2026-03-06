@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'لوحة الإدارة') | الجامعة</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ asset('notifications.css') }}">
     <style>
         body {
             background: #f4f6fb;
@@ -140,6 +142,7 @@
 
         /* Prevent zoom on input focus */
         @media (max-width: 768px) {
+
             input[type="text"],
             input[type="email"],
             input[type="password"],
@@ -419,7 +422,8 @@
     <div class="sidebar pt-0" id="sidebar">
         <div class="logo d-flex justify-content-between align-items-center">
             <span><i class="bi bi-mortarboard-fill me-2"></i>نظام الجداول</span>
-            <button type="button" class="btn-close btn-close-white d-md-none" id="closeSidebar" aria-label="إغلاق"></button>
+            <button type="button" class="btn-close btn-close-white d-md-none" id="closeSidebar"
+                aria-label="إغلاق"></button>
         </div>
         <nav class="nav flex-column mt-3">
             <a href="{{ route('admin.dashboard') }}" class="nav-link @active('admin/dashboard')"><i
@@ -465,6 +469,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('api.js') }}"></script>
+    <script src="{{ asset('datatable.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarToggle = document.getElementById('sidebarToggle');
