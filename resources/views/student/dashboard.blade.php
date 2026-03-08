@@ -540,13 +540,13 @@
     @endif
 
     {{-- ── Today's Labs/Sections ─────────────────────────────────── --}}
-    @if ($todaySchedules->where('type', 'lab')->where('section_id', auth()->user()->section_id)->count())
+    @if ($todaySchedules->where('type', 'lab')->count())
         <div class="schedule-card">
             <div class="card-header d-flex align-items-center">
                 <span><i class="bi bi-sun me-2"></i>سكاشن اليوم</span>
-                <span class="badge">{{ $todaySchedules->where('type', 'lab')->where('section_id', auth()->user()->section_id)->count() }}</span>
+                <span class="badge">{{ $todaySchedules->where('type', 'lab')->count() }}</span>
             </div>
-            @foreach($todaySchedules->where('type', 'lab')->where('section_id', auth()->user()->section_id) as $s)
+            @foreach($todaySchedules->where('type', 'lab') as $s)
                 <div class="lecture-item">
                     <div class="lecture-time">
                         <div class="time">{{ \Carbon\Carbon::parse($s->start_time)->format('H:i') }}</div>
@@ -562,9 +562,9 @@
                     </div>
                     <div class="lecture-type">
                         <span class="lecture-badge lab">معمل</span>
-                        @if ($s->section_id)
+                        @if ($s->sections->count() > 0)
                             <span class="badge badge-warning section">
-                                سكشن {{ $s->section_id }}
+                                أقسام: {{ $s->sections->pluck('id')->join(', ') }}
                             </span>
                         @endif
                         <div class="lecture-time-range">{{ $s->start_time }} – {{ $s->end_time }}</div>

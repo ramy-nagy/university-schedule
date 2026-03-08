@@ -376,8 +376,8 @@
                         {{ $s->type === 'lecture' ? 'محاضرة' : 'معمل' }}
                     </div>
                     @if ($s->type === 'lab')
-                        <span class="badge badge-warning {{ $s->section_id ? 'section' : 'no-section' }}">
-                            {{ $s->section_id ? "سكشن {$s->section_id}" : 'غير محدد' }}
+                        <span class="badge badge-warning {{ $s->sections->count() > 0 ? 'section' : 'no-section' }}">
+                            {{ $s->sections->count() > 0 ? "أقسام: " . $s->sections->pluck('id')->join(', ') : 'غير محدد' }}
                         </span>
                     @endif
                 </div>
