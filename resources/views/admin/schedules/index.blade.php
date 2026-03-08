@@ -31,7 +31,13 @@
                             {{ $s->type === 'lecture' ? 'محاضرة' : 'معمل' }}
                         </span>
                     </td>
-                    <td>{{ $s->section_id ?? 'غير محدد' }}</td>
+                    <td>
+                        @if($s->sections->count() > 0)
+                            <span class="badge bg-info">{{ $s->sections->pluck('id')->join(', ') }}</span>
+                        @else
+                            <span class="text-muted">—</span>
+                        @endif
+                    </td>
                     <td>
                         <a href="{{ route('admin.schedules.edit', $s) }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil"></i></a>
                         <form method="POST" action="{{ route('admin.schedules.destroy', $s) }}" class="d-inline"
