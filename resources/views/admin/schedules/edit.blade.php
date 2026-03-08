@@ -107,7 +107,7 @@
                         <label class="form-label">رقم القسم</label>
                         <input type="number" name="section_id"
                             class="form-control @error('section_id') is-invalid @enderror" min="1" max="200"
-                            value="{{ old('section_id') }}">
+                            value="{{ $schedule->section_id }}">
                         @error('section_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror </select>

@@ -123,7 +123,7 @@
                     </div>
                     <span class="badge bg-secondary">{{ $s->hall->name }}</span>
                     @if ($s->type === 'lab')
-                        <span class="lecture-badge {{ $s->section_id ? 'section' : 'no-section' }}">
+                        <span class="badge badge-warning text-white ms-2">
                             {{ $s->section_id ? "سكشن {$s->section_id}" : 'غير محدد' }}
                         </span>
                     @endif
