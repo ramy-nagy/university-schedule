@@ -376,7 +376,7 @@
                         {{ $s->type === 'lecture' ? 'محاضرة' : 'معمل' }}
                     </div>
                     @if ($s->type === 'lab')
-                        <span class="lecture-badge {{ $s->section_id ? 'section' : 'no-section' }}">
+                        <span class="badge badge-warning {{ $s->section_id ? 'section' : 'no-section' }}">
                             {{ $s->section_id ? "سكشن {$s->section_id}" : 'غير محدد' }}
                         </span>
                     @endif
