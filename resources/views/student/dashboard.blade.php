@@ -501,9 +501,9 @@
     <div class="schedule-card">
         <div class="card-header d-flex align-items-center">
             <span><i class="bi bi-sun me-2"></i>محاضرات اليوم</span>
-            <span class="badge">{{ $todaySchedules->count() }}</span>
+            <span class="badge">{{ $todaySchedules->where('type', 'lecture')->count() }}</span>
         </div>
-        @forelse($todaySchedules as $s)
+        @forelse($todaySchedules->where('type', 'lecture') as $s)
             <div class="lecture-item">
                 <div class="lecture-time">
                     <div class="time">{{ \Carbon\Carbon::parse($s->start_time)->format('H:i') }}</div>
@@ -518,15 +518,7 @@
                     </div>
                 </div>
                 <div class="lecture-type">
-                    <span class="lecture-badge {{ $s->type === 'lecture' ? 'lecture' : 'lab' }}">
-                        {{ $s->type === 'lecture' ? 'محاضرة' : 'معمل' }}
-                    </span>
-                    @if ($s->type === 'lab')
-                        <span class="badge badge-warning {{ $s->section_id ? 'section' : 'no-section' }}">
-                            {{ $s->section_id ? "سكشن {$s->section_id}" : 'غير محدد' }}
-                        </span>
-                    @endif
-
+                    <span class="lecture-badge lecture">محاضرة</span>
                     <div class="lecture-time-range">{{ $s->start_time }} – {{ $s->end_time }}</div>
                 </div>
             </div>
@@ -537,6 +529,41 @@
             </div>
         @endforelse
     </div>
+
+    {{-- ── Today's Labs/Sections ─────────────────────────────────── --}}
+    @if ($todaySchedules->where('type', 'lab')->count())
+        <div class="schedule-card">
+            <div class="card-header d-flex align-items-center">
+                <span><i class="bi bi-sun me-2"></i>ساكشنات اليوم</span>
+                <span class="badge">{{ $todaySchedules->where('type', 'lab')->count() }}</span>
+            </div>
+            @foreach($todaySchedules->where('type', 'lab') as $s)
+                <div class="lecture-item">
+                    <div class="lecture-time">
+                        <div class="time">{{ \Carbon\Carbon::parse($s->start_time)->format('H:i') }}</div>
+                        <div class="period">{{ \Carbon\Carbon::parse($s->start_time)->format('A') }}</div>
+                    </div>
+                    <div class="lecture-info">
+                        <div class="lecture-subject">{{ $s->subject->name }}</div>
+                        <div class="lecture-details">
+                            <i class="bi bi-person-badge"></i>{{ $s->doctor?->name ?? 'غير محدد' }}
+                            &nbsp;·&nbsp;
+                            <i class="bi bi-geo-alt"></i>{{ $s->hall?->name ?? 'غير محدد' }}
+                        </div>
+                    </div>
+                    <div class="lecture-type">
+                        <span class="lecture-badge lab">معمل</span>
+                        @if ($s->section_id)
+                            <span class="badge badge-warning section">
+                                سكشن {{ $s->section_id }}
+                            </span>
+                        @endif
+                        <div class="lecture-time-range">{{ $s->start_time }} – {{ $s->end_time }}</div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @endif
 
     {{-- ── Upcoming Lectures (Next 3) ──────────────────────── --}}
     @if ($upcomingSchedules->count())

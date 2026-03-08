@@ -360,7 +360,7 @@
             background: #fff;
             transform: translateX(8px);
             box-shadow: 0 8px 24px rgba(16, 185, 129, 0.12);
-            border-left-color: #f093fb;
+            /* border-left-color: #f093fb; */
         }
 
         .lecture-item small {
