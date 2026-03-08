@@ -96,7 +96,7 @@ class DashboardController extends Controller
             'subject',
             'hall'
         ])
-            ->scopeForSection($sectionId) // Filter by section if applicable
+            ->forSection($sectionId) // Filter by section if applicable
             ->forGroup($groupId)
             ->orderByRaw(DB::raw("CASE day_of_week
                 WHEN 'saturday' THEN 0
