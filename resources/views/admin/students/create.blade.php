@@ -42,10 +42,12 @@
 
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">رقم القسم/الشعبة</label>
-                    <input type="number" name="section_id" min="1" max="200"
-                           class="form-control @error('section_id') is-invalid @enderror"
-                           value="{{ old('section_id') }}" placeholder="مثال: 1, 2, 3"
-                           onfocus="this.placeholder='رقم القسم للحصص العملية'">
+                    <select name="section_id" class="form-select @error('section_id') is-invalid @enderror">
+                        <option value="">-- اختر القسم --</option>
+                        @for($i = 1; $i <= 200; $i++)
+                        <option value="{{ $i }}" {{ old('section_id') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                        @endfor
+                    </select>
                     <small class="text-muted">اختياري - رقم القسم الخاص به للحصص العملية</small>
                     @error('section_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>

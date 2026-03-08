@@ -533,13 +533,13 @@
     @endif
 
     {{-- ── Today's Labs/Sections ─────────────────────────────────── --}}
-    @if ($todaySchedules->where('type', 'lab')->count())
+    @if ($todaySchedules->where('type', 'lab')->where('section_id', auth()->user()->section_id)->count())
         <div class="schedule-card">
             <div class="card-header d-flex align-items-center">
                 <span><i class="bi bi-sun me-2"></i>سكاشن اليوم</span>
-                <span class="badge">{{ $todaySchedules->where('type', 'lab')->count() }}</span>
+                <span class="badge">{{ $todaySchedules->where('type', 'lab')->where('section_id', auth()->user()->section_id)->count() }}</span>
             </div>
-            @foreach($todaySchedules->where('type', 'lab') as $s)
+            @foreach($todaySchedules->where('type', 'lab')->where('section_id', auth()->user()->section_id) as $s)
                 <div class="lecture-item">
                     <div class="lecture-time">
                         <div class="time">{{ \Carbon\Carbon::parse($s->start_time)->format('H:i') }}</div>
