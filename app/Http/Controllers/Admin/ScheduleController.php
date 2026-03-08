@@ -33,7 +33,7 @@ class ScheduleController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'doctor_id'        => 'required|exists:doctors,id',
+            'doctor_id'        => 'nullable|exists:doctors,id',
             'subject_id'       => 'required|exists:subjects,id',
             'hall_id'          => 'required|exists:halls,id',
             'student_group_id' => 'required|exists:student_groups,id',
@@ -109,7 +109,7 @@ class ScheduleController extends Controller
     public function update(Request $request, Schedule $schedule)
     {
         $data = $request->validate([
-            'doctor_id'        => 'required|exists:doctors,id',
+            'doctor_id'        => 'nullable|exists:doctors,id',
             'subject_id'       => 'required|exists:subjects,id',
             'hall_id'          => 'required|exists:halls,id',
             'student_group_id' => 'required|exists:student_groups,id',

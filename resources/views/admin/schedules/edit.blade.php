@@ -10,7 +10,7 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <label class="form-label">الدكتور</label>
-                    <select name="doctor_id" class="form-select @error('doctor_id') is-invalid @enderror" required>
+                    <select name="doctor_id" class="form-select @error('doctor_id') is-invalid @enderror" >
                         <option value="">-- اختر الدكتور --</option>
                         @foreach($doctors as $d)
                             <option value="{{ $d->id }}" {{ $schedule->doctor_id==$d->id?'selected':'' }}>{{ $d->name }}</option>
