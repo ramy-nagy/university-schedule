@@ -20,12 +20,19 @@ class DashboardController extends Controller
         $sectionId = auth()->user()->section_id;
         // ── إحصاء إجمالي المحاضرات ────────────────────────
         $totalLecture = Schedule::forGroup($groupId)->where('type', 'lecture')->count();
-        $totalLabs = Schedule::forGroup($groupId) ->when($sectionId, function ($query) use ($sectionId) {
+        $totalLabs = Schedule::forGroup($groupId)
+            ->when($sectionId, function ($query) use ($sectionId) {
                 $query->where(function ($q) use ($sectionId) {
-                    $q->whereNull('section_id')
-                      ->orWhere('section_id', $sectionId);
+                    $q->where('type', 'lecture')
+                      ->orWhereHas('sections', function ($qs) use ($sectionId) {
+                          $qs->where('sections.id', $sectionId);
+                      });
                 });
-            })->where('type', 'lab')->count();
+            }, function ($query) {
+                $query->where('type', 'lecture');
+            })
+            ->where('type', 'lab')
+            ->count();
 
         // ── محاضرات اليوم (حسب يوم الأسبوع الحالي) ────────
         $dayOfWeekMap = [
@@ -100,14 +107,19 @@ class DashboardController extends Controller
         $schedules = Schedule::with([
             'doctor',
             'subject',
-            'hall'
+            'hall',
+            'sections'
         ])
             ->forGroup($groupId)
             ->when($sectionId, function ($query) use ($sectionId) {
                 $query->where(function ($q) use ($sectionId) {
-                    $q->whereNull('section_id')
-                      ->orWhere('section_id', $sectionId);
+                    $q->where('type', 'lecture')
+                      ->orWhereHas('sections', function ($qs) use ($sectionId) {
+                          $qs->where('sections.id', $sectionId);
+                      });
                 });
+            }, function ($query) {
+                $query->where('type', 'lecture');
             })
             ->orderByRaw(DB::raw("CASE day_of_week
                 WHEN 'saturday' THEN 0
