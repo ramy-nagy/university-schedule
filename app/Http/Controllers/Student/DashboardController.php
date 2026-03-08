@@ -90,7 +90,7 @@ class DashboardController extends Controller
     public function schedule()
     {
         $groupId = auth()->user()->student_group_id;
-
+        $sectionId = auth()->user()->section_id;
         // ── جلب الجدول كامل مع العلاقات ────────────────────
         $schedules = Schedule::with([
             'doctor',
@@ -98,6 +98,12 @@ class DashboardController extends Controller
             'hall'
         ])
             ->forGroup($groupId)
+            ->when($sectionId, function ($query) use ($sectionId) {
+                $query->where(function ($q) use ($sectionId) {
+                    $q->whereNull('section_id')
+                      ->orWhere('section_id', $sectionId);
+                });
+            })
             ->orderByRaw(DB::raw("CASE day_of_week
                 WHEN 'saturday' THEN 0
                 WHEN 'sunday' THEN 1
