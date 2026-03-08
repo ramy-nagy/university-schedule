@@ -14,13 +14,13 @@
                 <tr>
                     <th>الدكتور</th><th>المادة</th><th>القاعة</th>
                     <th>الفرقة </th><th>التاريخ</th><th>الوقت</th>
-                    <th>النوع</th><th>إجراءات</th>
+                    <th>النوع</th><th>السكشن</th><th>إجراءات</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($schedules as $s)
                 <tr>
-                    <td><i class="bi bi-person-badge me-1 text-muted"></i>{{ $s->doctor->name }}</td>
+                    <td><i class="bi bi-person-badge me-1 text-muted"></i>{{ $s->doctor?->name ?? '' }}</td>
                     <td>{{ $s->subject->name }}</td>
                     <td><span class="badge bg-secondary">{{ $s->hall->name }}</span></td>
                     <td>{{ $s->studentGroup->name }}</td>
@@ -31,6 +31,7 @@
                             {{ $s->type === 'lecture' ? 'محاضرة' : 'معمل' }}
                         </span>
                     </td>
+                    <td>{{ $s->section_id ?? 'غير محدد' }}</td>
                     <td>
                         <a href="{{ route('admin.schedules.edit', $s) }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-pencil"></i></a>
                         <form method="POST" action="{{ route('admin.schedules.destroy', $s) }}" class="d-inline"
