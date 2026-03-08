@@ -497,7 +497,7 @@
         </div>
         <div class="col-lg-3">
             <div class="stat-card">
-                <span class="stat-icon"><i class="bi bi-calendar-check"></i></span>
+                <span class="stat-icon"><i class="bi bi-pc-display"></i></span>
                 <div class="stat-number">{{ $totalLabs ?? 0 }}</div>
                 <div class="stat-label">إجمالي السكاشن</div>
             </div>
