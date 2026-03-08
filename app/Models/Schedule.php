@@ -11,13 +11,14 @@ class Schedule extends Model
 {
     protected $fillable = [
         'doctor_id','subject_id','hall_id',
-        'student_group_id','day_of_week','start_time','end_time','type','section_id',
+        'student_group_id','day_of_week','start_time','end_time','type',
     ];
 
     public function doctor()       { return $this->belongsTo(Doctor::class); }
     public function subject()      { return $this->belongsTo(Subject::class); }
     public function hall()         { return $this->belongsTo(Hall::class); }
     public function studentGroup() { return $this->belongsTo(StudentGroup::class); }
+    public function sections()     { return $this->belongsToMany(Section::class, 'schedule_section'); }
 
     // Accessors
     public function getDayOfWeekLabelAttribute()

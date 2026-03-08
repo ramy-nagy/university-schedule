@@ -104,12 +104,15 @@
                         @enderror
                     </div>
                     <div class="col-md-6" id="sectionIdContainer">
-                        <label class="form-label">رقم القسم/الشعبة</label>
-                        <input type="number" name="section_id" id="sectionIdInput"
-                            class="form-control @error('section_id') is-invalid @enderror" min="1" max="200"
-                            value="{{ $schedule->section_id }}" placeholder="مثال: 1, 2, 3">
-                        <small class="text-muted">رقم القسم/الشعبة للحصة العملية</small>
-                        @error('section_id')
+                        <label class="form-label">الأقسام/الشعب</label>
+                        <input type="text" name="section_ids_input" id="sectionIdInput"
+                            class="form-control @error('section_ids') is-invalid @enderror"
+                            placeholder="مثال: 1,2,3" 
+                            value="{{ old('section_ids_input', $schedule->sections->pluck('id')->join(',')) }}">
+                        <small class="text-muted d-block mt-2">
+                            <i class="bi bi-info-circle"></i> أدخل أرقام الأقسام مفصولة بفواصل (مثال: 1,2,3 أو 5,10,15)
+                        </small>
+                        @error('section_ids')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

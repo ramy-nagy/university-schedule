@@ -41,14 +41,17 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label fw-semibold">رقم القسم/الشعبة</label>
-                    <select name="section_id" class="form-select @error('section_id') is-invalid @enderror">
-                        <option value="">-- اختر القسم --</option>
-                        @for($i = 1; $i <= 200; $i++)
-                        <option value="{{ $i }}" {{ old('section_id') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                        @endfor
+                    <label class="form-label fw-semibold">القسم/الشعبة</label>
+                    <select name="section_id"
+                            class="form-select @error('section_id') is-invalid @enderror">
+                        <option value="">-- اختر القسم (اختياري) --</option>
+                        @foreach($sections as $sec)
+                        <option value="{{ $sec->id }}" {{ old('section_id')==$sec->id?'selected':'' }}>
+                            {{ $sec->name }}
+                        </option>
+                        @endforeach
                     </select>
-                    <small class="text-muted">اختياري - رقم القسم الخاص به للحصص العملية</small>
+                    <small class="text-muted">اختياري - القسم الذي ينتمي إليه الطالب للحصص العملية</small>
                     @error('section_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
 

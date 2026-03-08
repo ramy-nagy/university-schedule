@@ -62,6 +62,7 @@ class User extends Authenticatable
 
     public function doctor()       { return $this->belongsTo(Doctor::class); }
     public function studentGroup() { return $this->belongsTo(StudentGroup::class); }
+    public function section()      { return $this->belongsTo(Section::class); }
 
     public function isAdmin()   { return $this->role === 'admin'; }
     public function isDoctor()  { return $this->role === 'doctor'; }

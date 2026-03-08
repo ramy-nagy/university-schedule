@@ -5,7 +5,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\{User, StudentGroup, Schedule};
+use App\Models\{User, StudentGroup, Schedule, Section};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +35,8 @@ class StudentController extends Controller
     public function create()
     {
         $groups = StudentGroup::orderBy('name')->get();
-        return view('admin.students.create', compact('groups'));
+        $sections = Section::orderBy('name')->get();
+        return view('admin.students.create', compact('groups', 'sections'));
     }
 
     // ── حفظ طالب جديد ────────────────────────────────────
@@ -45,13 +46,13 @@ class StudentController extends Controller
             'name'             => 'required|string|max:100',
             'email'            => 'required|email|unique:users,email',
             'student_group_id' => 'required|exists:student_groups,id',
-            'section_id'       => 'nullable|integer|min:1|max:200',
+            'section_id'       => 'nullable|exists:sections,id',
             'password'         => 'required|string|min:8|confirmed',
         ], [
             'name.required'             => 'اسم الطالب مطلوب',
             'email.unique'              => 'هذا البريد مسجل بالفعل',
             'student_group_id.required' => 'يجب اختيار الفرقة  الدراسية',
-            'section_id.integer'        => 'رقم القسم يجب أن يكون رقماً صحيحاً',
+            'section_id.exists'         => 'القسم المختار غير موجود',
             'password.min'              => 'كلمة المرور 8 أحرف على الأقل',
             'password.confirmed'        => 'كلمتا المرور غير متطابقتين',
         ]);
@@ -118,7 +119,8 @@ class StudentController extends Controller
     {
         abort_if($student->role !== 'student', 404);
         $groups = StudentGroup::orderBy('name')->get();
-        return view('admin.students.edit', compact('student', 'groups'));
+        $sections = Section::orderBy('name')->get();
+        return view('admin.students.edit', compact('student', 'groups', 'sections'));
     }
 
     // ── تحديث بيانات طالب ────────────────────────────────
@@ -130,10 +132,10 @@ class StudentController extends Controller
             'name'             => 'required|string|max:100',
             'email'            => 'required|email|unique:users,email,' . $student->id,
             'student_group_id' => 'required|exists:student_groups,id',
-            'section_id'       => 'nullable|integer|min:1|max:200',
+            'section_id'       => 'nullable|exists:sections,id',
             'password'         => 'nullable|string|min:8|confirmed',
         ], [
-            'section_id.integer' => 'رقم القسم يجب أن يكون رقماً صحيحاً',
+            'section_id.exists' => 'القسم المختار غير موجود',
         ]);
 
         $data = [

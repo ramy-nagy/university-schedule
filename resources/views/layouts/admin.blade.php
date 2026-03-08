@@ -723,6 +723,7 @@
             box-shadow: 0 10px 40px rgba(30, 58, 95, 0.2);
         }
     </style>
+    @stack('styles')
 </head>
 
 <body>
