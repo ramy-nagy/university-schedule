@@ -19,7 +19,8 @@ class DashboardController extends Controller
         $groupId = auth()->user()->student_group_id;
 
         // ── إحصاء إجمالي المحاضرات ────────────────────────
-        $totalSchedules = Schedule::forGroup($groupId)->count();
+        $totalLecture = Schedule::forGroup($groupId)->where('type', 'lecture')->count();
+        $totalLabs = Schedule::forGroup($groupId)->where('type', 'lab')->count();
 
         // ── محاضرات اليوم (حسب يوم الأسبوع الحالي) ────────
         $dayOfWeekMap = [
@@ -71,7 +72,8 @@ class DashboardController extends Controller
             ->count();
 
         return view('student.dashboard', compact(
-            'totalSchedules',
+            'totalLecture',
+            'totalLabs',
             'todaySchedules',
             'upcomingSchedules',
             'weekSchedules',
