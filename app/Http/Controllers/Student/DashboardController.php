@@ -17,10 +17,15 @@ class DashboardController extends Controller
     public function index()
     {
         $groupId = auth()->user()->student_group_id;
-
+        $sectionId = auth()->user()->section_id;
         // ── إحصاء إجمالي المحاضرات ────────────────────────
         $totalLecture = Schedule::forGroup($groupId)->where('type', 'lecture')->count();
-        $totalLabs = Schedule::forGroup($groupId)->where('type', 'lab')->count();
+        $totalLabs = Schedule::forGroup($groupId) ->when($sectionId, function ($query) use ($sectionId) {
+                $query->where(function ($q) use ($sectionId) {
+                    $q->whereNull('section_id')
+                      ->orWhere('section_id', $sectionId);
+                });
+            })->where('type', 'lab')->count();
 
         // ── محاضرات اليوم (حسب يوم الأسبوع الحالي) ────────
         $dayOfWeekMap = [
