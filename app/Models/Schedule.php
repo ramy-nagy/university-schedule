@@ -11,7 +11,7 @@ class Schedule extends Model
 {
     protected $fillable = [
         'doctor_id','subject_id','hall_id',
-        'student_group_id','day_of_week','start_time','end_time','type'
+        'student_group_id','day_of_week','start_time','end_time','type','section_id',
     ];
 
     public function doctor()       { return $this->belongsTo(Doctor::class); }
