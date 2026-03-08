@@ -110,7 +110,7 @@
                                     {{ $s->start_time }} – {{ $s->end_time }}
                                 </td>
                                 <td><strong>{{ $s->subject->name }}</strong></td>
-                                <td>{{ $s->doctor->name }}</td>
+                                <td>{{ $s->doctor?->name ?? 'غير محدد' }}</td>
                                 <td><span class="badge bg-secondary">{{ $s->hall->name }}</span></td>
                                 <td>
                                     <span class="badge {{ $s->type === 'lecture' ? 'bg-primary' : 'bg-success' }}">

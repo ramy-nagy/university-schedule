@@ -88,7 +88,7 @@
                     </div>
                     <div class="flex-grow-1">
                         <div class="fw-semibold">{{ $s->subject->name }}</div>
-                        <div class="text-muted small">{{ $s->doctor->name }} · {{ $s->hall->name }}</div>
+                        <div class="text-muted small">{{ $s->doctor?->name ?? 'غير محدد' }} · {{ $s->hall->name }}</div>
                     </div>
                     <span class="badge {{ $s->type==='lecture'?'bg-primary':'bg-success' }}">
                         {{ $s->type==='lecture'?'محاضرة':'معمل' }}
@@ -116,7 +116,7 @@
                     <div class="flex-grow-1">
                         <div class="fw-semibold">{{ $s->subject->name }}</div>
                         <div class="text-muted small">
-                            {{ $s->doctor->name }} ·
+                            {{ $s->doctor?->name ?? 'غير محدد' }} ·
                             {{ $s->studentGroup->name }} ·
                             {{ $s->day_of_week_label }}
                         </div>
@@ -161,7 +161,7 @@
                         </td>
                         @endif
                         <td>{{ $s->subject->name }}</td>
-                        <td>{{ $s->doctor->name }}</td>
+                        <td>{{ $s->doctor?->name ?? 'غير محدد' }}</td>
                         <td><span class="badge bg-secondary">{{ $s->hall->name }}</span></td>
                         <td>{{ $s->studentGroup->name }}</td>
                         <td class="text-nowrap">{{ $s->start_time }} – {{ $s->end_time }}</td>
