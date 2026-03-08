@@ -471,7 +471,7 @@
     {{-- ── Welcome + Group Info ─────────────────────────────── --}}
     <div class="row g-3 mb-4">
         {{-- Welcome Card --}}
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <div class="dashboard-header d-flex align-items-center gap-4">
                 <div class="avatar">
                     <i class="bi bi-person-fill"></i>
@@ -488,11 +488,18 @@
         </div>
 
         {{-- Quick Stats --}}
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <div class="stat-card">
                 <span class="stat-icon"><i class="bi bi-calendar-check"></i></span>
-                <div class="stat-number">{{ $totalSchedules }}</div>
+                <div class="stat-number">{{ $totalLecture ?? 0 }}</div>
                 <div class="stat-label">إجمالي المحاضرات</div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="stat-card">
+                <span class="stat-icon"><i class="bi bi-calendar-check"></i></span>
+                <div class="stat-number">{{ $totalLabs ?? 0 }}</div>
+                <div class="stat-label">إجمالي السكاشن</div>
             </div>
         </div>
     </div>
