@@ -498,7 +498,8 @@
     </div>
 
     {{-- ── Today's Lectures ─────────────────────────────────── --}}
-    <div class="schedule-card">
+    @if ($todaySchedules->where('type', 'lecture')->count() > 0)
+         <div class="schedule-card">
         <div class="card-header d-flex align-items-center">
             <span><i class="bi bi-sun me-2"></i>محاضرات اليوم</span>
             <span class="badge">{{ $todaySchedules->where('type', 'lecture')->count() }}</span>
@@ -529,12 +530,13 @@
             </div>
         @endforelse
     </div>
+    @endif
 
     {{-- ── Today's Labs/Sections ─────────────────────────────────── --}}
     @if ($todaySchedules->where('type', 'lab')->count())
         <div class="schedule-card">
             <div class="card-header d-flex align-items-center">
-                <span><i class="bi bi-sun me-2"></i>ساكشنات اليوم</span>
+                <span><i class="bi bi-sun me-2"></i>سكاشن اليوم</span>
                 <span class="badge">{{ $todaySchedules->where('type', 'lab')->count() }}</span>
             </div>
             @foreach($todaySchedules->where('type', 'lab') as $s)
