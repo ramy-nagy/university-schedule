@@ -124,7 +124,7 @@
                     <span class="badge bg-secondary">{{ $s->hall->name }}</span>
                     @if ($s->type === 'lab')
                         <span class="badge badge-warning text-white ms-2">
-                            {{ $s->section_id ? "سكشن {$s->section_id}" : 'غير محدد' }}
+                            {{ $s->sections->count() > 0 ? "أقسام: " . $s->sections->pluck('id')->join(', ') : 'غير محدد' }}
                         </span>
                     @endif
                 </div>

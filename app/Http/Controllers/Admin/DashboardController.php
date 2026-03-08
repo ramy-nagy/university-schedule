@@ -25,7 +25,7 @@ class DashboardController extends Controller
         ];
 
         // ── آخر 5 جداول مضافة ────────────────────────────────
-        $latestSchedules = Schedule::with(['doctor', 'subject', 'hall', 'studentGroup'])
+        $latestSchedules = Schedule::with(['doctor', 'subject', 'hall', 'studentGroup', 'sections'])
             ->latest()
             ->take(5)
             ->get();
