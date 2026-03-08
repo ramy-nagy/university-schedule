@@ -33,7 +33,7 @@ class ScheduleController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'section_id'        => 'nullable|integer|min:1|max:200',
+            'section_id'        => ['nullable', 'integer', 'min:1', 'max:200'],
             'doctor_id'        => 'nullable|exists:doctors,id',
             'subject_id'       => 'required|exists:subjects,id',
             'hall_id'          => 'required|exists:halls,id',
@@ -42,7 +42,15 @@ class ScheduleController extends Controller
             'start_time'       => 'required|date_format:H:i',
             'end_time'         => 'required|date_format:H:i|after:start_time',
             'type'             => 'required|in:lecture,lab',
+        ], [
+            'section_id.required' => 'رقم القسم/الشعبة مطلوب للحصص العملية',
+            'section_id.integer'  => 'رقم القسم يجب أن يكون رقماً صحيحاً',
         ]);
+
+        // ── Additional validation: section_id required for labs ──
+        if ($data['type'] === 'lab' && empty($data['section_id'])) {
+            return back()->withInput()->withErrors(['section_id' => 'رقم القسم/الشعبة مطلوب للحصص العملية']);
+        }
 
         // ── Conflict Detection ────────────────────────────────
         $conflicts = $this->detectConflicts($data);
@@ -110,7 +118,7 @@ class ScheduleController extends Controller
     public function update(Request $request, Schedule $schedule)
     {
         $data = $request->validate([
-            'section_id'      => 'nullable|integer|min:1|max:200',
+            'section_id'      => ['nullable', 'integer', 'min:1', 'max:200'],
             'doctor_id'        => 'nullable|exists:doctors,id',
             'subject_id'       => 'required|exists:subjects,id',
             'hall_id'          => 'required|exists:halls,id',
@@ -119,7 +127,15 @@ class ScheduleController extends Controller
             'start_time'       => 'required|date_format:H:i',
             'end_time'         => 'required|date_format:H:i|after:start_time',
             'type'             => 'required|in:lecture,lab',
+        ], [
+            'section_id.required' => 'رقم القسم/الشعبة مطلوب للحصص العملية',
+            'section_id.integer'  => 'رقم القسم يجب أن يكون رقماً صحيحاً',
         ]);
+
+        // ── Additional validation: section_id required for labs ──
+        if ($data['type'] === 'lab' && empty($data['section_id'])) {
+            return back()->withInput()->withErrors(['section_id' => 'رقم القسم/الشعبة مطلوب للحصص العملية']);
+        }
 
         $conflicts = $this->detectConflicts($data, $schedule->id);
         if ($conflicts['has_conflict']) {

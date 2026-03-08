@@ -45,11 +45,13 @@ class StudentController extends Controller
             'name'             => 'required|string|max:100',
             'email'            => 'required|email|unique:users,email',
             'student_group_id' => 'required|exists:student_groups,id',
+            'section_id'       => 'nullable|integer|min:1|max:200',
             'password'         => 'required|string|min:8|confirmed',
         ], [
             'name.required'             => 'اسم الطالب مطلوب',
             'email.unique'              => 'هذا البريد مسجل بالفعل',
             'student_group_id.required' => 'يجب اختيار الفرقة  الدراسية',
+            'section_id.integer'        => 'رقم القسم يجب أن يكون رقماً صحيحاً',
             'password.min'              => 'كلمة المرور 8 أحرف على الأقل',
             'password.confirmed'        => 'كلمتا المرور غير متطابقتين',
         ]);
@@ -60,6 +62,7 @@ class StudentController extends Controller
             'password'         => Hash::make($request->password),
             'role'             => 'student',
             'student_group_id' => $request->student_group_id,
+            'section_id'       => $request->section_id,
         ]);
 
         return redirect()->route('admin.students.index')
@@ -127,13 +130,17 @@ class StudentController extends Controller
             'name'             => 'required|string|max:100',
             'email'            => 'required|email|unique:users,email,' . $student->id,
             'student_group_id' => 'required|exists:student_groups,id',
+            'section_id'       => 'nullable|integer|min:1|max:200',
             'password'         => 'nullable|string|min:8|confirmed',
+        ], [
+            'section_id.integer' => 'رقم القسم يجب أن يكون رقماً صحيحاً',
         ]);
 
         $data = [
             'name'             => $request->name,
             'email'            => $request->email,
             'student_group_id' => $request->student_group_id,
+            'section_id'       => $request->section_id,
         ];
 
         if ($request->filled('password')) {

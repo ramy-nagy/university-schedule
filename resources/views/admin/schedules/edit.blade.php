@@ -94,23 +94,24 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">نوع الحصة</label>
-                        <select name="type" class="form-select @error('type') is-invalid @enderror">
+                        <select name="type" id="scheduleType" class="form-select @error('type') is-invalid @enderror">
                             <option value="lecture" {{ $schedule->type === 'lecture' ? 'selected' : '' }}>محاضرة نظرية
                             </option>
-                            <option value="lab" {{ $schedule->type === 'lab' ? 'selected' : '' }}>حصة معمل</option>
+                            <option value="lab" {{ $schedule->type === 'lab' ? 'selected' : '' }}>حصة معمل / قسم</option>
                         </select>
                         @error('type')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-6">
-                        <label class="form-label">رقم القسم</label>
-                        <input type="number" name="section_id"
+                    <div class="col-md-6" id="sectionIdContainer">
+                        <label class="form-label">رقم القسم/الشعبة</label>
+                        <input type="number" name="section_id" id="sectionIdInput"
                             class="form-control @error('section_id') is-invalid @enderror" min="1" max="200"
-                            value="{{ $schedule->section_id }}">
+                            value="{{ $schedule->section_id }}" placeholder="مثال: 1, 2, 3">
+                        <small class="text-muted">رقم القسم/الشعبة للحصة العملية</small>
                         @error('section_id')
                             <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror </select>
+                        @enderror
                     </div>
                 </div>
                 <div class="mt-4 d-flex gap-2">
@@ -120,4 +121,27 @@
             </form>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const scheduleTypeSelect = document.getElementById('scheduleType');
+            const sectionIdContainer = document.getElementById('sectionIdContainer');
+            const sectionIdInput = document.getElementById('sectionIdInput');
+            
+            function toggleSectionIdField() {
+                if (scheduleTypeSelect.value === 'lab') {
+                    sectionIdContainer.style.display = 'block';
+                    sectionIdInput.required = true;
+                } else {
+                    sectionIdContainer.style.display = 'none';
+                    sectionIdInput.required = false;
+                }
+            }
+            
+            // Initialize on page load
+            toggleSectionIdField();
+            
+            // Update when type changes
+            scheduleTypeSelect.addEventListener('change', toggleSectionIdField);
+        });
+    </script>
 @endsection

@@ -27,7 +27,7 @@
                            value="{{ old('email', $student->email) }}" required>
                     @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
-                <div class="col-12">
+                <div class="col-md-6">
                     <label class="form-label fw-semibold">الفرقة  الدراسية</label>
                     <select name="student_group_id" class="form-select" required>
                         @foreach($groups as $g)
@@ -37,6 +37,14 @@
                         </option>
                         @endforeach
                     </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">رقم القسم/الشعبة</label>
+                    <input type="number" name="section_id" min="1" max="200"
+                           class="form-control @error('section_id') is-invalid @enderror"
+                           value="{{ old('section_id', $student->section_id) }}" placeholder="مثال: 1, 2, 3">
+                    <small class="text-muted">اختياري - رقم القسم الخاص به للحصص العملية</small>
+                    @error('section_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
                 <div class="col-12">
                     <div class="alert alert-light border small">

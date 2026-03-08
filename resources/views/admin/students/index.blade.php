@@ -52,6 +52,7 @@
                     <th>اسم الطالب</th>
                     <th>البريد الإلكتروني</th>
                     <th>الفرقة </th>
+                    <th>رقم القسم</th>
                     <th>أيام الدراسة</th>
                     <th>إجراءات</th>
                 </tr>
@@ -74,6 +75,7 @@
                             {{ $student->studentGroup->name ?? '—' }}
                         </span>
                     </td>
+                    <td class="text-muted small">{{ $student->section_id ?? '—' }}</td>
                     <td class="text-muted small">{{ $student->studentGroup->study_days ?? '—' }}</td>
                     <td>
                         {{-- عرض جدول الطالب --}}
