@@ -153,7 +153,7 @@
             <thead class="table-light">
                 <tr>
                     <th>اليوم</th><th>المادة</th><th>الدكتور</th>
-                    <th>القاعة</th><th>الفرقة </th><th>الوقت</th>
+                    <th>القاعة</th><th>الفرقة </th><th>النوع</th><th>الوقت</th>
                 </tr>
             </thead>
             <tbody>
@@ -169,6 +169,11 @@
                         <td>{{ $s->doctor?->name ?? 'غير محدد' }}</td>
                         <td><span class="badge bg-secondary">{{ $s->hall->name }}</span></td>
                         <td>{{ $s->studentGroup->name }}</td>
+                        <td>
+                            <span class="badge {{ $s->type === 'lecture' ? 'bg-primary' : 'bg-warning text-dark' }}">
+                                {{ $s->type === 'lecture' ? 'محاضرة' : 'معمل' }}
+                            </span>
+                        </td>
                         <td class="text-nowrap">{{ $s->start_time }} – {{ $s->end_time }}</td>
                     </tr>
                     @endforeach
