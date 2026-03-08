@@ -88,6 +88,7 @@ class DashboardController extends Controller
     public function schedule()
     {
         $groupId = auth()->user()->student_group_id;
+        $sectionId = auth()->user()->section_id;
 
         // ── جلب الجدول كامل مع العلاقات ────────────────────
         $schedules = Schedule::with([
@@ -95,6 +96,7 @@ class DashboardController extends Controller
             'subject',
             'hall'
         ])
+            ->scopeForSection($sectionId) // Filter by section if applicable
             ->forGroup($groupId)
             ->orderByRaw(DB::raw("CASE day_of_week
                 WHEN 'saturday' THEN 0

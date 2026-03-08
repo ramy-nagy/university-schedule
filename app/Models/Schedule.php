@@ -37,5 +37,6 @@ class Schedule extends Model
     // Scopes
     public function scopeForDoctor($q, $doctorId)      { return $q->where('doctor_id', $doctorId); }
     public function scopeForGroup($q, $groupId)        { return $q->where('student_group_id', $groupId); }
+    public function scopeForSection($q, $sectionId)   { return $q->where('section_id', $sectionId); }
     public function scopeForDay($q, $dayOfWeek)        { return $q->where('day_of_week', $dayOfWeek); }
 }
