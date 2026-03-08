@@ -15,7 +15,7 @@ class SectionSeeder extends Seeder
         // Create sections from 1 to 200 with Arabic names
         for ($i = 1; $i <= 200; $i++) {
             Section::create([
-                'name' => "سكشن - " . $i,
+                'name' => $i,
                 'description' => "القسم رقم " . $i,
             ]);
         }
