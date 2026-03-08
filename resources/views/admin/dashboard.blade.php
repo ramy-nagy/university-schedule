@@ -90,7 +90,7 @@
                         <div class="fw-semibold">{{ $s->subject->name }}</div>
                         <div class="text-muted small">{{ $s->doctor?->name ?? 'غير محدد' }} · {{ $s->hall->name }}</div>
                     </div>
-                    <span class="badge {{ $s->type==='lecture'?'bg-primary':'bg-success' }}">
+                    <span class="badge {{ $s->type==='lecture'?'bg-primary':'bg-warning' }}">
                         {{ $s->type==='lecture'?'محاضرة':'معمل' }}
                     </span>
                 </div>
@@ -122,6 +122,11 @@
                         </div>
                     </div>
                     <span class="badge bg-secondary">{{ $s->hall->name }}</span>
+                    @if ($s->type === 'lab')
+                        <span class="lecture-badge {{ $s->section_id ? 'section' : 'no-section' }}">
+                            {{ $s->section_id ? "سكشن {$s->section_id}" : 'غير محدد' }}
+                        </span>
+                    @endif
                 </div>
                 @empty
                 <div class="text-center text-muted py-5">لا توجد بيانات</div>
