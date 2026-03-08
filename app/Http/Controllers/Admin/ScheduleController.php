@@ -94,11 +94,33 @@ class ScheduleController extends Controller
                 'message' => "⚠️ الدكتور لديه محاضرة أخرى في نفس الوقت"];
         }
 
-        // 3. Student group conflict
-        $groupConflict = (clone $q)->where('student_group_id', $data['student_group_id'])->first();
-        if ($groupConflict) {
-            return ['has_conflict' => true,
-                'message' => "⚠️ الفرقة  الطلابية لديها محاضرة أخرى في نفس الوقت"];
+        // 3. Student group conflict (depends on type)
+        if ($data['type'] === 'lecture') {
+            // Lecture: conflicts with ANY schedule for same group (lectures or labs)
+            $groupConflict = (clone $q)->where('student_group_id', $data['student_group_id'])->first();
+            if ($groupConflict) {
+                return ['has_conflict' => true,
+                    'message' => "⚠️ الفرقة الطلابية لديها محاضرة أخرى في نفس الوقت"];
+            }
+        } elseif ($data['type'] === 'lab') {
+            // Lab: conflicts with lectures OR other labs with SAME section_id
+            // Different sections of same group can have labs at same time
+            $groupConflict = (clone $q)
+                ->where('student_group_id', $data['student_group_id'])
+                ->where(function($q) use ($data) {
+                    $q->where('type', 'lecture')  // Conflicts with lectures
+                      ->orWhere(function($q) use ($data) {
+                          // Conflicts with labs of same section_id
+                          $q->where('type', 'lab')
+                            ->where('section_id', $data['section_id']);
+                      });
+                })
+                ->first();
+            if ($groupConflict) {
+                $conflictType = $groupConflict->type === 'lecture' ? 'محاضرة نظرية' : 'قسم آخر في نفس الموعد';
+                return ['has_conflict' => true,
+                    'message' => "⚠️ الفرقة الطلابية (القسم {$data['section_id']}) لديها {$conflictType} في نفس الوقت"];
+            }
         }
 
         return ['has_conflict' => false, 'message' => ''];
